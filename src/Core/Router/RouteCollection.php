@@ -30,7 +30,7 @@ class RouteCollection
      */
     public function add(string $name, Route $item)
     {
-        $this->route[$name] = $item;
+        $this->routes[$name] = $item;
     }
 
     /**
@@ -39,8 +39,8 @@ class RouteCollection
      */
     public function get(string $name): ?Route
     {
-        if (array_key_exists($name, $this->route)) {
-            return $this->route[$name];
+        if (array_key_exists($name, $this->routes)) {
+            return $this->routes[$name];
         }
 
         return null;
@@ -51,6 +51,6 @@ class RouteCollection
      */
     public function getAll(): ?array
     {
-        return $this->route;
+        return $this->routes;
     }
 }
