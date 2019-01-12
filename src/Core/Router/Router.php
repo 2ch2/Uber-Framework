@@ -33,7 +33,7 @@ class Router
     /**
      * Collection, which contains all routes.
      *
-     * @var object
+     * @var RouteCollection
      */
     protected static $collection;
 
@@ -91,15 +91,15 @@ class Router
     }
 
     /**
-     * @param object $collection
+     * @param RouteCollection $collection
      */
-    public function setCollection(object $collection)
+    public function setCollection(RouteCollection $collection)
     {
         self::$collection = $collection;
     }
 
     /**
-     * @return mixed
+     * @return \stdClass
      */
     public function getCollection()
     {
