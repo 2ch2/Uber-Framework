@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Core\App;
 use Core\Router\UrlGenerator;
 
 /**
@@ -20,8 +21,10 @@ use Core\Router\UrlGenerator;
  *
  * @link https://github.com/Ubermade/mvc-engine
  */
-class MainController{
-    public function start(){
+class MainController extends App
+{
+    public function start()
+    {
         $urlGenerator = new UrlGenerator();
         echo $urlGenerator->generate('home');
     }
