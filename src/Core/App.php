@@ -48,7 +48,22 @@ class App
         ]);
     }
 
-    private function loadProvidersConfig(){
-        $this->providersConfig = require_once(__DIR__.'/../Include/providers_config.inc.php');
+    public function render(string $name, array $data = [])
+    {
+        try {
+            $body = $this->view->render('View/' . $name, $data);
+            echo $body;
+        } catch (\Exception $e) {
+            echo $e->getMessage() . '<br>
+            File: ' . $e->getFile() . '<br>
+            Line: ' . $e->getLine() . '<br>
+            Trace: ' . $e->getTraceAsString();
+            exit;
+        }
+    }
+
+    private function loadProvidersConfig()
+    {
+        $this->providersConfig = require_once(__DIR__ . '/../Include/providers_config.inc.php');
     }
 }

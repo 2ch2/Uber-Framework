@@ -3,7 +3,6 @@
 namespace Controller;
 
 use Core\App;
-use Core\Router\UrlGenerator;
 
 /**
  * Main Controller, includes the most
@@ -25,7 +24,6 @@ class MainController extends App
 {
     public function start()
     {
-        $urlGenerator = new UrlGenerator();
-        echo $urlGenerator->generate('home');
+        $this->render('Main/start.html.twig');
     }
 }
