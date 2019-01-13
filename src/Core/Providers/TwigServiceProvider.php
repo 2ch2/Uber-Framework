@@ -7,11 +7,11 @@ use Twig_Environment;
 use Twig_SimpleFunction;
 
 /**
- * Here is some comment
+ * Provider for twig.
  *
  * Class TwigServiceProvider
  *
- * @category MyCategory
+ * @category Provider
  *
  * @package Core\Providers
  *

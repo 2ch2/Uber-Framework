@@ -1,0 +1,21 @@
+{% extends 'View/Layouts/default.html.twig' %}
+
+{% block content %}
+    <h1>Show Entries</h1>
+    <a href="{{ url('addEntry') }}">Add entry</a>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Options</th>
+        </tr>
+        {% for item in entries %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.content }}</td>
+                <td><a href="{{ url('removeEntry', {'id' : item.id}) }}">Remove</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

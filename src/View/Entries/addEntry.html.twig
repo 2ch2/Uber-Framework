@@ -1,0 +1,11 @@
+{% extends 'View/Layouts/default.html.twig' %}
+
+{% block content %}
+    <h1>Add Entry</h1>
+
+    <form method="post">
+        <input type="text" name="title" placeholder="Title"><br><br>
+        <textarea name="content" placeholder="Here write the post content..."></textarea><br>
+        <input type="submit">
+    </form>
+{% endblock %}
