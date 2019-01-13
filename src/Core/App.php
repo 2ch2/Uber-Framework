@@ -92,6 +92,17 @@ class App
     }
 
     /**
+     * Redirecting to page from given parameters.
+     *
+     * @param string $name
+     * @param array $data
+     */
+    public function redirect(string $name, array $data = []){
+        header('Location: '. $this->urlGenerator->generate($name, $data));
+        exit;
+    }
+
+    /**
      * @return EntityManager
      */
     public function getEntityManager(): EntityManager

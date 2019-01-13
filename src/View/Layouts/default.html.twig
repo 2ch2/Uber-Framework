@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>mvc-engine</title>
+</head>
+<body>
+<div class="content">
+    <header>
+        <nav>
+            <ul class="menu">
+                <li><a href="{{ url('start') }}">Start</a></li>
+                <li><a href="{{ url('showEntries') }}">Entries</a></li>
+            </ul>
+        </nav>
+    </header>
+    {% block content %}
+
+    {% endblock %}
+</div>
+</body>
+</html>
