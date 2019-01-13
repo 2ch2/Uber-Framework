@@ -4,6 +4,7 @@ namespace Core\Providers;
 
 use Twig_Loader_Filesystem;
 use Twig_Environment;
+use Twig_SimpleFunction;
 
 /**
  * Here is some comment
@@ -33,6 +34,12 @@ class TwigServiceProvider extends ServiceProvider
             'cache' => $this->config['cache'],
             'auto_reload' => true
         ));
+
+        $functionGenerateUrl = new Twig_SimpleFunction('url', function ($name, $parameters = null) use($options){
+            return $options['urlGenerator']->generate($name, $parameters);
+        });
+
+        $twig->addFunction($functionGenerateUrl);
 
         return $twig;
     }

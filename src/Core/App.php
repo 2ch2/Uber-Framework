@@ -3,6 +3,7 @@
 namespace Core;
 
 use Core\Providers\TwigServiceProvider;
+use Core\Router\UrlGenerator;
 
 /**
  * Main file, managing classes entered
@@ -36,15 +37,23 @@ class App
     private $view;
 
     /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
+
+    /**
      * App constructor.
      */
     public function __construct()
     {
         $this->loadProvidersConfig();
 
+        $this->urlGenerator = new UrlGenerator();
+
         $twig = new TwigServiceProvider($this->providersConfig['twig']);
         $this->view = $twig->provide([
             //Parameters, that you want to give for TwigServiceProvider
+            'urlGenerator' => $this->urlGenerator
         ]);
     }
 

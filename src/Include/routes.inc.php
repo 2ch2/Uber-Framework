@@ -1,7 +1,7 @@
 <?php
 $collection = new \Core\Router\RouteCollection();
 
-$collection->add('home', new \Core\Router\Route(
+$collection->add('start', new \Core\Router\Route(
     //Url
     HTTP_SERVER.'',
     [
