@@ -2,8 +2,10 @@
 
 namespace Core;
 
+use Core\Providers\DoctrineServiceProvider;
 use Core\Providers\TwigServiceProvider;
 use Core\Router\UrlGenerator;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Main file, managing classes entered
@@ -40,6 +42,14 @@ class App
     private $view;
 
     /**
+     * Variable, that includes Entity Manager
+     * for correct Model working.
+     *
+     * @var EntityManager
+     */
+    private $entityManager;
+
+    /**
      * @var UrlGenerator
      */
     private $urlGenerator;
@@ -58,6 +68,9 @@ class App
             //Parameters, that you want to give for TwigServiceProvider
             'urlGenerator' => $this->urlGenerator
         ]);
+
+        $doctrine = new DoctrineServiceProvider($this->providersConfig['database']);
+        $this->entityManager = $doctrine->provide();
     }
 
     /**
@@ -76,6 +89,14 @@ class App
             Trace: ' . $e->getTraceAsString();
             exit;
         }
+    }
+
+    /**
+     * @return EntityManager
+     */
+    public function getEntityManager(): EntityManager
+    {
+        return $this->entityManager;
     }
 
     private function loadProvidersConfig()
