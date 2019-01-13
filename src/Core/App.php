@@ -32,6 +32,9 @@ class App
     private $providersConfig;
 
     /**
+     * Variable, that includes Twig Environment
+     * for correct View working.
+     *
      * @var \Twig_Environment|null
      */
     private $view;
@@ -57,6 +60,10 @@ class App
         ]);
     }
 
+    /**
+     * @param string $name
+     * @param array $data
+     */
     public function render(string $name, array $data = [])
     {
         try {

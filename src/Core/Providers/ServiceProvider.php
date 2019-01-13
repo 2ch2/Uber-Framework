@@ -24,6 +24,10 @@ abstract class ServiceProvider
      */
     protected $config;
 
+    /**
+     * ServiceProvider constructor.
+     * @param array $config
+     */
     public function __construct(array $config)
     {
         $this->config = $config;
