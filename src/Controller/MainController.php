@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-use Core\Router\UrlGenerator;
+use Core\App;
 
 /**
  * Main Controller, includes the most
@@ -20,9 +20,10 @@ use Core\Router\UrlGenerator;
  *
  * @link https://github.com/Ubermade/mvc-engine
  */
-class MainController{
-    public function start(){
-        $urlGenerator = new UrlGenerator();
-        echo $urlGenerator->generate('home');
+class MainController extends App
+{
+    public function start()
+    {
+        $this->render('Main/start.html.twig');
     }
 }
