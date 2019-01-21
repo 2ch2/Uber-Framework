@@ -1,21 +1,20 @@
 <?php
 
-namespace Core;
+namespace uber\Http;
 
-use Core\Providers\DoctrineServiceProvider;
-use Core\Providers\TwigServiceProvider;
-use Core\Router\UrlGenerator;
+use uber\Providers\DoctrineServiceProvider;
+use uber\Providers\TwigServiceProvider;
+use uber\Core\Router\UrlGenerator;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Main file, managing classes entered
- * into the controller, backend process, etc...
+ * Main controller class.
  *
- * Class App
+ * Class MainController
  *
  * @category Core
  *
- * @package Core
+ * @package uber\Http
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
@@ -23,16 +22,8 @@ use Doctrine\ORM\EntityManager;
  *
  * @link https://github.com/Ubermade/mvc-engine
  */
-class App
+class MainController
 {
-    /**
-     * Config, that includes
-     * Service Provider settings.
-     *
-     * @var array
-     */
-    private $providersConfig;
-
     /**
      * Variable, that includes Twig Environment
      * for correct View working.
@@ -59,17 +50,15 @@ class App
      */
     public function __construct()
     {
-        $this->loadProvidersConfig();
-
         $this->urlGenerator = new UrlGenerator();
 
-        $twig = new TwigServiceProvider($this->providersConfig['twig']);
+        $twig = new TwigServiceProvider(TWIG);
         $this->view = $twig->provide([
             //Parameters, that you want to give for TwigServiceProvider
             'urlGenerator' => $this->urlGenerator
         ]);
 
-        $doctrine = new DoctrineServiceProvider($this->providersConfig['database']);
+        $doctrine = new DoctrineServiceProvider(DATABASE);
         $this->entityManager = $doctrine->provide();
     }
 
@@ -80,7 +69,7 @@ class App
     public function render(string $name, array $data = [])
     {
         try {
-            $body = $this->view->render('View/' . $name, $data);
+            $body = $this->view->render($name, $data);
             echo $body;
         } catch (\Exception $e) {
             echo $e->getMessage() . '<br>
@@ -97,8 +86,9 @@ class App
      * @param string $name
      * @param array $data
      */
-    public function redirect(string $name, array $data = []){
-        header('Location: '. $this->urlGenerator->generate($name, $data));
+    public function redirect(string $name, array $data = [])
+    {
+        header('Location: ' . $this->urlGenerator->generate($name, $data));
         exit;
     }
 
@@ -108,10 +98,5 @@ class App
     public function getEntityManager(): EntityManager
     {
         return $this->entityManager;
-    }
-
-    private function loadProvidersConfig()
-    {
-        $this->providersConfig = require_once(__DIR__ . '/../Include/providers_config.inc.php');
     }
 }

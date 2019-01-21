@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Router;
+namespace uber\Core\Router;
 
 /**
  * Here is some comment
@@ -9,7 +9,7 @@ namespace Core\Router;
  *
  * @category Routing
  *
- * @package Engine\Router
+ * @package uber\Core\Router
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *

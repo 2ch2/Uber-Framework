@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Router;
+namespace uber\Core\Router;
 
 /**
  * That's routing collection, management info about routes.
@@ -9,7 +9,7 @@ namespace Core\Router;
  *
  * @category Routing
  *
- * @package Core\Router
+ * @package uber\Core\Router
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *

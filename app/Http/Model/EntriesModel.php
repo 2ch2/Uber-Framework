@@ -1,15 +1,15 @@
 <?php
 
-namespace Model;
+namespace app\Http\Model;
 
 /**
- * Here is some comment
+ * Model for entries
  *
  * Class EntriesModel
  *
  * @category Model
  *
- * @package Model
+ * @package app\Http\Model
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *

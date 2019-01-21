@@ -1,7 +1,7 @@
 <?php
-$collection = new \Core\Router\RouteCollection();
+$collection = new uber\Core\Router\RouteCollection();
 
-$collection->add('start', new \Core\Router\Route(
+$collection->add('start', new uber\Core\Router\Route(
     //Url
     HTTP_SERVER.'',
     [
@@ -14,30 +14,30 @@ $collection->add('start', new \Core\Router\Route(
     ]
 ));
 
-$collection->add('showEntries', new \Core\Router\Route(
+$collection->add('displayEntries', new uber\Core\Router\Route(
     HTTP_SERVER.'entries',
     [
         'file' => 'EntriesController.php',
         'class' => 'EntriesController',
-        'method' => 'showEntries'
+        'method' => 'displayAction'
     ]
 ));
 
-$collection->add('addEntry', new \Core\Router\Route(
+$collection->add('addEntry', new uber\Core\Router\Route(
     HTTP_SERVER.'entries/add',
     [
         'file' => 'EntriesController.php',
         'class' => 'EntriesController',
-        'method' => 'addEntry'
+        'method' => 'addAction'
     ]
 ));
 
-$collection->add('removeEntry', new \Core\Router\Route(
+$collection->add('removeEntry', new uber\Core\Router\Route(
     HTTP_SERVER.'entries/remove/{id}',
     [
         'file' => 'EntriesController.php',
         'class' => 'EntriesController',
-        'method' => 'removeEntry'
+        'method' => 'removeAction'
     ],
     [
         'id' => '\d+'
@@ -47,4 +47,4 @@ $collection->add('removeEntry', new \Core\Router\Route(
     ]
 ));
 
-$router = new \Core\Router\Router($_SERVER['REQUEST_URI'], $collection);
+$router = new uber\Core\Router\Router($_SERVER['REQUEST_URI'], $collection);

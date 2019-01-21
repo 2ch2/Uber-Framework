@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Providers;
+namespace uber\Providers;
 
 use Twig_Loader_Filesystem;
 use Twig_Environment;
@@ -13,7 +13,7 @@ use Twig_SimpleFunction;
  *
  * @category Provider
  *
- * @package Core\Providers
+ * @package uber\Providers
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *

@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Providers;
+namespace uber\Providers;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -12,7 +12,7 @@ use Doctrine\ORM\Tools\Setup;
  *
  * @category Provider
  *
- * @package Core\Providers
+ * @package uber\Providers
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *

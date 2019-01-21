@@ -1,6 +1,6 @@
 <?php
 
-namespace Utils;
+namespace uber\Utils;
 
 /**
  * Class, which contains utilities for
@@ -10,7 +10,7 @@ namespace Utils;
  *
  * @category Utilities
  *
- * @package Utils
+ * @package uber\Utils
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *

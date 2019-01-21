@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Providers;
+namespace uber\Providers;
 
 /**
  * Main class of service providers.
@@ -9,7 +9,7 @@ namespace Core\Providers;
  *
  * @category Provider
  *
- * @package Core\Providers
+ * @package uber\Providers
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *

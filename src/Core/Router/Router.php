@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Router;
+namespace uber\Core\Router;
 
-use Utils\StringUtils;
+use uber\Utils\StringUtils;
 
 /**
  * That's main class of routing system, taking part in
@@ -12,7 +12,7 @@ use Utils\StringUtils;
  *
  * @category Routing
  *
- * @package Core\Router
+ * @package uber\Core\Router
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
