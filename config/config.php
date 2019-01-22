@@ -17,7 +17,7 @@ define('DATABASE', [
 
 //Set cache and starting dir destination for twig
 define('TWIG', [
-    'dir' => __DIR__.'/../app/http/View/',
+    'dir' => __DIR__ . '/../app/View/',
     'cache' => __DIR__.'/../cache'
 ]);
 

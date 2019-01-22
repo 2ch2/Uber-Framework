@@ -2,7 +2,7 @@
 
 namespace app\Http\Controller;
 
-use app\Http\Model\EntriesModel;
+use app\Model\EntriesModel;
 
 /**
  * Entries controller, managing all processes of
@@ -26,7 +26,7 @@ class EntriesController extends \uber\Http\MainController
     {
         $em = $this->getEntityManager();
 
-        $model = $em->getRepository('app\Http\Model\EntriesModel')->findAll();
+        $model = $em->getRepository('app\Model\EntriesModel')->findAll();
 
         $this->render('Entries/displayAction.html.twig', [
             'entries' => $model
@@ -56,7 +56,7 @@ class EntriesController extends \uber\Http\MainController
         if ($_GET['id'] && $_GET['id'] !== 0) {
             $em = $this->getEntityManager();
 
-            $model = $em->find('app\Http\Model\EntriesModel', $_GET['id']);
+            $model = $em->find('app\Model\EntriesModel', $_GET['id']);
             if ($model) {
                 $em->remove($model);
                 $em->flush();

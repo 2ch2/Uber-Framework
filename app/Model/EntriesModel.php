@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Model;
+namespace app\Model;
 
 /**
  * Model for entries
@@ -9,7 +9,7 @@ namespace app\Http\Model;
  *
  * @category Model
  *
- * @package app\Http\Model
+ * @package app\Model
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
