@@ -15,7 +15,7 @@ namespace app\Model;
  *
  * @license The MIT License (MIT)
  *
- * @link https://github.com/Ubermade/mvc-engine
+ * @link https://github.com/Ubermade/Uber-Framework
  *
  * @Entity
  * @Table(name="entries")
