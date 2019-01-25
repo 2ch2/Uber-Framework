@@ -1,8 +1,6 @@
 <?php
 
-namespace Controller;
-
-use Core\App;
+namespace app\Http\Controller;
 
 /**
  * Main Controller, includes the most
@@ -12,15 +10,15 @@ use Core\App;
  *
  * @category Controller
  *
- * @package Controller
+ * @package app\Http\Controller
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
  *
- * @link https://github.com/Ubermade/mvc-engine
+ * @link https://github.com/kamil-ubermade/Uber-Framework
  */
-class MainController extends App
+class MainController extends \uber\Http\MainController
 {
     public function start()
     {

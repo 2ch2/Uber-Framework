@@ -1,9 +1,8 @@
 <?php
 
-namespace Controller;
+namespace app\Http\Controller;
 
-use Core\App;
-use Model\EntriesModel;
+use app\Model\EntriesModel;
 
 /**
  * Entries controller, managing all processes of
@@ -13,28 +12,28 @@ use Model\EntriesModel;
  *
  * @category Controller
  *
- * @package Controller
+ * @package app\Http\Controller
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
  *
- * @link https://github.com/Ubermade/mvc-engine
+ * @link https://github.com/kamil-ubermade/Uber-Framework
  */
-class EntriesController extends App
+class EntriesController extends \uber\Http\MainController
 {
-    public function showEntries()
+    public function displayAction()
     {
         $em = $this->getEntityManager();
 
-        $model = $em->getRepository('Model\EntriesModel')->findAll();
+        $model = $em->getRepository('app\Model\EntriesModel')->findAll();
 
-        $this->render('Entries/showEntries.html.twig', [
+        $this->render('Entries/displayAction.html.twig', [
             'entries' => $model
         ]);
     }
 
-    public function addEntry()
+    public function addAction()
     {
         if (isset($_POST['title']) && isset($_POST['content'])) {
             $em = $this->getEntityManager();
@@ -46,24 +45,24 @@ class EntriesController extends App
             $em->persist($model);
             $em->flush();
 
-            $this->redirect('showEntries');
+            $this->redirect('displayEntries');
         } else {
-            $this->render('Entries/addEntry.html.twig');
+            $this->render('Entries/addAction.html.twig');
         }
     }
 
-    public function removeEntry()
+    public function removeAction()
     {
         if ($_GET['id'] && $_GET['id'] !== 0) {
             $em = $this->getEntityManager();
 
-            $model = $em->find('Model\EntriesModel', $_GET['id']);
+            $model = $em->find('app\Model\EntriesModel', $_GET['id']);
             if ($model) {
                 $em->remove($model);
                 $em->flush();
             }
         }
 
-        $this->redirect('showEntries');
+        $this->redirect('displayEntries');
     }
 }

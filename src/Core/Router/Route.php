@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Router;
+namespace uber\Core\Router;
 
 /**
  * This is routing file, contains getters & setters
@@ -10,13 +10,13 @@ namespace Core\Router;
  *
  * @category Routing
  *
- * @package Core\Router
+ * @package uber\Core\Router
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
  *
- * @link https://github.com/Ubermade/mvc-engine
+ * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class Route
 {
@@ -71,8 +71,8 @@ class Route
 
         try {
             if (isset($config['file']) && isset($config['class']) && isset($config['method'])) {
-                $this->file = 'src/Controller/' . $config['file'];
-                $this->class = 'Controller\\' . $config['class'];
+                $this->file = 'app/Http/Controller/' . $config['file'];
+                $this->class = 'app\\Http\\Controller\\' . $config['class'];
                 $this->method = $config['method'];
             } else {
                 throw new \Exception('Config is not valid.');

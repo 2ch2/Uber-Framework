@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Providers;
+namespace uber\Providers;
 
 /**
  * Main class of service providers.
@@ -9,13 +9,13 @@ namespace Core\Providers;
  *
  * @category Provider
  *
- * @package Core\Providers
+ * @package uber\Providers
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
  *
- * @link https://github.com/Ubermade/mvc-engine
+ * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 abstract class ServiceProvider
 {

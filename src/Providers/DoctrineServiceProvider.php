@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Providers;
+namespace uber\Providers;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
@@ -12,13 +12,13 @@ use Doctrine\ORM\Tools\Setup;
  *
  * @category Provider
  *
- * @package Core\Providers
+ * @package uber\Providers
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
  *
- * @link https://github.com/Ubermade/mvc-engine
+ * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class DoctrineServiceProvider extends ServiceProvider
 {

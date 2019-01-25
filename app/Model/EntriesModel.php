@@ -1,21 +1,21 @@
 <?php
 
-namespace Model;
+namespace app\Model;
 
 /**
- * Here is some comment
+ * Model for entries
  *
  * Class EntriesModel
  *
  * @category Model
  *
- * @package Model
+ * @package app\Model
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
  *
- * @link https://github.com/Ubermade/mvc-engine
+ * @link https://github.com/kamil-ubermade/Uber-Framework
  *
  * @Entity
  * @Table(name="entries")
