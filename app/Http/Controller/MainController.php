@@ -16,7 +16,7 @@ namespace app\Http\Controller;
  *
  * @license The MIT License (MIT)
  *
- * @link https://github.com/Ubermade/Uber-Framework
+ * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class MainController extends \uber\Http\MainController
 {

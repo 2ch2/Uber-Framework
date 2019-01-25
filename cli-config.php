@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/src/Include/config.inc.php';
+require_once __DIR__ . '/config/config.php';
 
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Setup;
@@ -17,15 +17,14 @@ foreach ($_SERVER['argv'] as $key => $val) {
 }
 
 if ($smModuleArg)
-    $paths = array(__DIR__ . '/src/' . explode(':', $smModuleArg)[1]);
+    $paths = array(__DIR__ . '/app/' . explode(':', $smModuleArg)[1]);
 else
-    $paths = array(__DIR__ . '/src/');
+    $paths = array(__DIR__ . '/app/');
 
-$dbParams = include(__DIR__ . '/src/Include/providers_config.inc.php');
 $config = Setup::createAnnotationMetadataConfiguration($paths, DEBUG_MODE);
 
 try {
-    $entityManager = EntityManager::create($dbParams['database'], $config);
+    $entityManager = EntityManager::create(DATABASE, $config);
     return ConsoleRunner::createHelperSet($entityManager);
 } catch (\Exception $e) {
     echo $e->getMessage() . '<br>

@@ -18,7 +18,7 @@ use app\Model\EntriesModel;
  *
  * @license The MIT License (MIT)
  *
- * @link https://github.com/Ubermade/Uber-Framework
+ * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class EntriesController extends \uber\Http\MainController
 {

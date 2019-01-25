@@ -15,7 +15,7 @@ namespace uber\Providers;
  *
  * @license The MIT License (MIT)
  *
- * @link https://github.com/Ubermade/Uber-Framework
+ * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 abstract class ServiceProvider
 {

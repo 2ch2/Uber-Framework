@@ -1,7 +1,7 @@
 <?php
 
 //Here write your domain with correct protocol (https://example.com/)
-define('HTTP_SERVER', 'http://localhost/UberFramework/');
+define('HTTP_SERVER', 'http://localhost/Uber-Framework/');
 
 //Check for debug mode
 define('DEBUG_MODE', true);
