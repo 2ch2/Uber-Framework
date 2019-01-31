@@ -2,6 +2,8 @@
 
 namespace uber\Core\Router;
 
+use uber\Utils\ExceptionUtils;
+
 /**
  * This is routing file, contains getters & setters
  * for correct route working.
@@ -75,13 +77,10 @@ class Route
                 $this->class = 'app\\Http\\Controller\\' . $config['class'];
                 $this->method = $config['method'];
             } else {
-                throw new \Exception('Config is not valid.');
+                throw new \Exception('Routes config is not valid.');
             }
-        } catch (\Exception $e) {
-            echo $e->getMessage() . '<br>
-            File: ' . $e->getFile() . '<br>
-            Line: ' . $e->getLine() . '<br>
-            Trace: ' . $e->getTraceAsString();
+        } catch (\Exception $exception) {
+            ExceptionUtils::displayFullExceptionDetails($exception);
             exit;
         }
         $this->setParams($params);

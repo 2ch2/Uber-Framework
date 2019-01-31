@@ -2,6 +2,8 @@
 
 namespace uber\Core\Router;
 
+use uber\Utils\ExceptionUtils;
+
 /**
  * Here is some comment
  *
@@ -58,13 +60,12 @@ class UrlGenerator
                 $defaults = $this->route->getDefaults();
                 return $this->matchUrl($data, $path, $defaults);
             } else {
-                throw new \Exception('Routing ' . $name . ' does not exist.');
+                throw new \Exception('Routing "' . $name . '" does not exist.');
             }
-        } catch (\Exception $e) {
-            echo $e->getMessage();
+        } catch (\Exception $exception) {
+            ExceptionUtils::displayExceptionMessage($exception);
+            exit;
         }
-
-        return null;
     }
 
     /**

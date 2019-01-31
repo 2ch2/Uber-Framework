@@ -4,6 +4,7 @@ namespace uber\Providers;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
+use uber\Utils\ExceptionUtils;
 
 /**
  * Provider for orm doctrine.
@@ -32,11 +33,8 @@ class DoctrineServiceProvider extends ServiceProvider
 
         try {
             return EntityManager::create($this->config, $config);
-        } catch (\Exception $e) {
-            echo $e->getMessage() . '<br>
-            File: ' . $e->getFile() . '<br>
-            Line: ' . $e->getLine() . '<br>
-            Trace: ' . $e->getTraceAsString();
+        } catch (\Exception $exception) {
+            ExceptionUtils::displayFullExceptionDetails($exception);
             exit;
         }
     }

@@ -6,6 +6,7 @@ use uber\Providers\DoctrineServiceProvider;
 use uber\Providers\TwigServiceProvider;
 use uber\Core\Router\UrlGenerator;
 use Doctrine\ORM\EntityManager;
+use uber\Utils\ExceptionUtils;
 
 /**
  * Main controller class.
@@ -71,11 +72,8 @@ class MainController
         try {
             $body = $this->view->render($name, $data);
             echo $body;
-        } catch (\Exception $e) {
-            echo $e->getMessage() . '<br>
-            File: ' . $e->getFile() . '<br>
-            Line: ' . $e->getLine() . '<br>
-            Trace: ' . $e->getTraceAsString();
+        } catch (\Exception $exception) {
+            ExceptionUtils::displayFullExceptionDetails($exception);
             exit;
         }
     }
