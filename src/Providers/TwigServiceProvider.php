@@ -44,9 +44,14 @@ class TwigServiceProvider extends ServiceProvider
             return $options['session']->get($name);
         });
 
+        $functionAsset = new Twig_SimpleFunction('asset', function ($path){
+            return __DIR__.'/../../public/'.$path;
+        });
+
         //Here include created functions.
         $twig->addFunction($functionGenerateUrl);
         $twig->addFunction($functionDisplaySession);
+        $twig->addFunction($functionAsset);
 
         return $twig;
     }
