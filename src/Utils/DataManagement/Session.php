@@ -52,7 +52,7 @@ class Session
     /**
      * @return bool
      */
-    public function isStarted()
+    public function isStarted(): ?bool
     {
         if (isset($this->session))
             return true;
@@ -77,6 +77,18 @@ class Session
     {
         if (!isset($_SESSION[$name]))
             $this->session[$name] = $content;
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function isSessionExists(string $name): ?bool
+    {
+        if (isset($this->session[$name]))
+            return true;
+        else
+            return false;
     }
 
     /**
