@@ -12,7 +12,7 @@ use uber\Utils\ExceptionUtils;
  *
  * @category Utilities
  *
- * @package uber\Utils
+ * @package uber\Utils\DataManagement
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
@@ -22,10 +22,31 @@ use uber\Utils\ExceptionUtils;
  */
 class Session
 {
+    /**
+     * @var array
+     */
+    protected $session;
+
+    /**
+     * Session constructor.
+     */
+    public function __construct()
+    {
+        if (isset($this->session)) {
+            $this->session = $_SESSION;
+        }
+    }
+
+    /**
+     * Starts session and assigns true session
+     * into local session variable.
+     */
     public function start()
     {
-        if (!isset($_SESSION))
+        if (!isset($_SESSION)) {
             session_start();
+            $this->session = $_SESSION;
+        }
     }
 
     /**
@@ -33,7 +54,7 @@ class Session
      */
     public function isStarted()
     {
-        if (isset($_SESSION))
+        if (isset($this->session))
             return true;
 
         return false;
@@ -45,7 +66,7 @@ class Session
      */
     public function set(string $name, $content)
     {
-        $_SESSION[$name] = $content;
+        $this->session[$name] = $content;
     }
 
     /**
@@ -55,7 +76,7 @@ class Session
     public function setIfNotExists(string $name, $content)
     {
         if (!isset($_SESSION[$name]))
-            $_SESSION[$name] = $content;
+            $this->session[$name] = $content;
     }
 
     /**
@@ -65,8 +86,8 @@ class Session
     public function get(string $name)
     {
         try {
-            if (isset($_SESSION[$name]))
-                return $_SESSION[$name];
+            if (isset($this->session[$name]))
+                return $this->session[$name];
 
             throw new \Exception('Session with name "' . $name . '" does not exists.');
         } catch (\Exception $exception) {
@@ -81,8 +102,8 @@ class Session
     public function unset(string $name)
     {
         try {
-            if (isset($_SESSION[$name]))
-                unset($_SESSION[$name]);
+            if (isset($this->session[$name]))
+                unset($this->session[$name]);
             else
                 throw new \Exception('Session with name "' . $name . '" does not exists.');
         } catch (\Exception $exception) {
@@ -93,7 +114,16 @@ class Session
 
     public function destroy()
     {
-        if (isset($_SESSION))
+        if (isset($this->session))
             session_destroy();
+    }
+
+    /**
+     * Assigns the local session variable
+     * into the true session.
+     */
+    public function assign()
+    {
+        $_SESSION = $this->session;
     }
 }
