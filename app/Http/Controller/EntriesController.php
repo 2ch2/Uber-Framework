@@ -3,6 +3,7 @@
 namespace app\Http\Controller;
 
 use app\Model\EntriesModel;
+use uber\Utils\DataManagement\VariablesManagement;
 
 /**
  * Entries controller, managing all processes of
@@ -22,6 +23,21 @@ use app\Model\EntriesModel;
  */
 class EntriesController extends \uber\Http\MainController
 {
+    /**
+     * @var VariablesManagement
+     */
+    private $variables;
+
+    /**
+     * EntriesController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->variables = new VariablesManagement();
+    }
+
     public function displayAction()
     {
         $em = $this->getEntityManager();
@@ -35,12 +51,12 @@ class EntriesController extends \uber\Http\MainController
 
     public function addAction()
     {
-        if (isset($_POST['title']) && isset($_POST['content'])) {
+        if ($this->variables->isPostExists('title') && $this->variables->isPostExists('content')) {
             $em = $this->getEntityManager();
             $model = new EntriesModel();
 
-            $model->setTitle($_POST['title']);
-            $model->setContent($_POST['content']);
+            $model->setTitle($this->variables->post('title'));
+            $model->setContent($this->variables->post('content'));
 
             $em->persist($model);
             $em->flush();
@@ -53,10 +69,10 @@ class EntriesController extends \uber\Http\MainController
 
     public function removeAction()
     {
-        if ($_GET['id'] && $_GET['id'] !== 0) {
+        if ($this->variables->isGetExists('id') && $this->variables->get('id') !== 0) {
             $em = $this->getEntityManager();
 
-            $model = $em->find('app\Model\EntriesModel', $_GET['id']);
+            $model = $em->find('app\Model\EntriesModel', $this->variables->get('id'));
             if ($model) {
                 $em->remove($model);
                 $em->flush();

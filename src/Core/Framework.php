@@ -3,6 +3,7 @@
 namespace uber\Core;
 
 use uber\Core\Router\Router;
+use uber\Utils\ExceptionUtils;
 
 /**
  * Main framework class
@@ -51,11 +52,12 @@ class Framework
                 $obj = new $class();
                 $obj->$method();
             } else {
-                throw new \Exception('Not found');
+                throw new \Exception('Page not found.');
             }
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             header("HTTP/1.1 404 Not Found");
-            echo $e->getMessage();
+            ExceptionUtils::displayExceptionMessage($exception);
+            exit;
         }
     }
 }

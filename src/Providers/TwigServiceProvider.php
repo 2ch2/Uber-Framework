@@ -35,11 +35,23 @@ class TwigServiceProvider extends ServiceProvider
             'auto_reload' => true
         ));
 
+        //Here create functions for twig.
         $functionGenerateUrl = new Twig_SimpleFunction('url', function ($name, $parameters = null) use($options){
             return $options['urlGenerator']->generate($name, $parameters);
         });
 
+        $functionDisplaySession = new Twig_SimpleFunction('session', function ($name) use($options){
+            return $options['session']->get($name);
+        });
+
+        $functionAsset = new Twig_SimpleFunction('asset', function ($path){
+            return __DIR__.'/../../public/'.$path;
+        });
+
+        //Here include created functions.
         $twig->addFunction($functionGenerateUrl);
+        $twig->addFunction($functionDisplaySession);
+        $twig->addFunction($functionAsset);
 
         return $twig;
     }
