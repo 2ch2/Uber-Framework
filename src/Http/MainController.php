@@ -6,6 +6,7 @@ use uber\Providers\DoctrineServiceProvider;
 use uber\Providers\TwigServiceProvider;
 use uber\Core\Router\UrlGenerator;
 use Doctrine\ORM\EntityManager;
+use uber\Utils\DataManagement\Session;
 use uber\Utils\ExceptionUtils;
 
 /**
@@ -47,16 +48,23 @@ class MainController
     private $urlGenerator;
 
     /**
+     * @var Session
+     */
+    private $session;
+
+    /**
      * App constructor.
      */
     public function __construct()
     {
         $this->urlGenerator = new UrlGenerator();
+        $this->session = new Session();
 
         $twig = new TwigServiceProvider(TWIG);
         $this->view = $twig->provide([
             //Parameters, that you want to give for TwigServiceProvider
-            'urlGenerator' => $this->urlGenerator
+            'urlGenerator' => $this->urlGenerator,
+            'session' => $this->session
         ]);
 
         $doctrine = new DoctrineServiceProvider(DATABASE);

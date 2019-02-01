@@ -22,17 +22,21 @@ use uber\Utils\ExceptionUtils;
  */
 class Session
 {
-    /**
-     * Session constructor.
-     */
-    public function __construct()
-    {
-
-    }
-
     public function start()
     {
-        session_start();
+        if (!isset($_SESSION))
+            session_start();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStarted()
+    {
+        if (isset($_SESSION))
+            return true;
+
+        return false;
     }
 
     /**
@@ -46,14 +50,24 @@ class Session
 
     /**
      * @param string $name
+     * @param $content
+     */
+    public function setIfNotExists(string $name, $content)
+    {
+        if (!isset($_SESSION[$name]))
+            $_SESSION[$name] = $content;
+    }
+
+    /**
+     * @param string $name
      * @return mixed
      */
     public function get(string $name)
     {
         try {
-            if (isset($_SESSION['name'])) {
+            if (isset($_SESSION[$name]))
                 return $_SESSION[$name];
-            }
+
             throw new \Exception('Session with name "' . $name . '" does not exists.');
         } catch (\Exception $exception) {
             ExceptionUtils::displayExceptionMessage($exception);
@@ -66,11 +80,20 @@ class Session
      */
     public function unset(string $name)
     {
-        unset($_SESSION[$name]);
+        try {
+            if (isset($_SESSION[$name]))
+                unset($_SESSION[$name]);
+            else
+                throw new \Exception('Session with name "' . $name . '" does not exists.');
+        } catch (\Exception $exception) {
+            ExceptionUtils::displayExceptionMessage($exception);
+            exit;
+        }
     }
 
     public function destroy()
     {
-        session_destroy();
+        if (isset($_SESSION))
+            session_destroy();
     }
 }
