@@ -9,17 +9,9 @@ use uber\Utils\ExceptionUtils;
 /**
  * Provider for orm doctrine.
  *
- * Class DoctrineServiceProvider
- *
- * @category Provider
- *
- * @package uber\Providers
- *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class DoctrineServiceProvider extends ServiceProvider
 {

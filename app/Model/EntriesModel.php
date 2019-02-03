@@ -3,19 +3,11 @@
 namespace app\Model;
 
 /**
- * Model for entries
- *
- * Class EntriesModel
- *
- * @category Model
- *
- * @package app\Model
+ * Model for entries.
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  *
  * @Entity
  * @Table(name="entries")

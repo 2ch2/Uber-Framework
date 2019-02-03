@@ -12,19 +12,11 @@ use uber\Utils\ExceptionUtils;
 /**
  * Main controller class.
  *
- * Class MainController
- *
- * @category Core
- *
- * @package uber\Http
- *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
-class MainController
+class Controller
 {
     /**
      * Variable, that includes Twig Environment

@@ -9,17 +9,9 @@ use Twig_SimpleFunction;
 /**
  * Provider for twig.
  *
- * Class TwigServiceProvider
- *
- * @category Provider
- *
- * @package uber\Providers
- *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class TwigServiceProvider extends ServiceProvider
 {

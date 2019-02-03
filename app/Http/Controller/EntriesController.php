@@ -9,19 +9,11 @@ use uber\Utils\DataManagement\VariablesManagement;
  * Entries controller, managing all processes of
  * entries system.
  *
- * Class EntriesController
- *
- * @category Controller
- *
- * @package app\Http\Controller
- *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
-class EntriesController extends \uber\Http\MainController
+class EntriesController extends \uber\Http\Controller
 {
     /**
      * @var VariablesManagement

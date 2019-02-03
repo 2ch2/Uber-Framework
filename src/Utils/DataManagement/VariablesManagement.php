@@ -2,24 +2,15 @@
 
 namespace uber\Utils\DataManagement;
 
-use http\Env\Response;
 use uber\Utils\ExceptionUtils;
 
 /**
  * Simple class for managing with variables
  * like $_POST, &_GET.
  *
- * Class VariablesManagement
- *
- * @category Utilities
- *
- * @package uber\Utils\DataManagement
- *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class VariablesManagement
 {

@@ -6,17 +6,9 @@ namespace uber\Utils;
  * Class, which contains utilities for
  * strings.
  *
- * Class StringUtils
- *
- * @category Utilities
- *
- * @package uber\Utils
- *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class StringUtils
 {

@@ -6,19 +6,11 @@ use uber\Core\Router\Router;
 use uber\Utils\ExceptionUtils;
 
 /**
- * Main framework class
- *
- * Class Framework
- *
- * @category Core
- *
- * @package uber\Core
+ * Main framework class.
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class Framework
 {

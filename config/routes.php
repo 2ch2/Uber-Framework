@@ -6,9 +6,9 @@ $collection->add('start', new uber\Core\Router\Route(
     HTTP_SERVER.'',
     [
         //Name of controller file (starts in src/Controller/)
-        'file' => 'MainController.php',
-        //Name of controller class (Namespace starts in Controller\\)
-        'class' => 'MainController',
+        'file' => 'Controller.php',
+        //Name of controller class (Namespace starts in Controller)
+        'class' => 'Controller',
         //Name of function in assigned class
         'method' => 'start'
     ]

@@ -5,19 +5,11 @@ namespace uber\Core\Router;
 use uber\Utils\ExceptionUtils;
 
 /**
- * Here is some comment
- *
- * Class UrlGenerator
- *
- * @category Routing
- *
- * @package uber\Core\Router
+ * This class is using for making displays url's.
  *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class UrlGenerator
 {

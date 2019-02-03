@@ -8,17 +8,9 @@ use uber\Utils\ExceptionUtils;
  * Class, that includes methods for session
  * management.
  *
- * Class Session
- *
- * @category Utilities
- *
- * @package uber\Utils\DataManagement
- *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class Session
 {

@@ -8,17 +8,9 @@ use uber\Utils\StringUtils;
  * That's main class of routing system, taking part in
  * true URL reading.
  *
- * Class Router
- *
- * @category Routing
- *
- * @package uber\Core\Router
- *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class Router
 {

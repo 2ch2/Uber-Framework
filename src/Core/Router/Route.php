@@ -8,17 +8,9 @@ use uber\Utils\ExceptionUtils;
  * This is routing file, contains getters & setters
  * for correct route working.
  *
- * Class Route
- *
- * @category Routing
- *
- * @package uber\Core\Router
- *
  * @author Original Author <kamil.ubermade@gmail.com>
  *
  * @license The MIT License (MIT)
- *
- * @link https://github.com/kamil-ubermade/Uber-Framework
  */
 class Route
 {

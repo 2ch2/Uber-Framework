@@ -17,23 +17,20 @@ foreach ($_SERVER['argv'] as $key => $val) {
 }
 
 if ($smModuleArg)
-    $paths = array(__DIR__ . '/app/' . explode(':', $smModuleArg)[1]);
+    $paths = array(__DIR__ . '/app/Model/' . explode(':', $smModuleArg)[1]);
 else
-    $paths = array(__DIR__ . '/app/');
+    $paths = array(__DIR__ . '/app/Model/');
 
 $config = Setup::createAnnotationMetadataConfiguration($paths, DEBUG_MODE);
 
 try {
     $entityManager = EntityManager::create(DATABASE, $config);
     return ConsoleRunner::createHelperSet($entityManager);
-} catch (\Exception $e) {
-    echo $e->getMessage() . '<br>
-    File: ' . $e->getFile() . '<br>
-    Line: ' . $e->getLine() . '<br>
-    Trace: ' . $e->getTraceAsString();
+} catch (\Exception $exception) {
+    \uber\Utils\ExceptionUtils::displayFullExceptionDetails($exception);
     exit;
 }
 
 //Run schema tool update
-//For Windows: php vendor/doctrine/orm/bin/doctrine orm:schema-tool:update --force --dump-sql --sm-module:Model
-//For Linux: php vendor/bin/doctrine orm:schema-tool:update --force --dump-sql --sm-module:Model
+//For Windows: php vendor/doctrine/orm/bin/doctrine orm:schema-tool:update --force --dump-sql --sm-module:<path>
+//For Linux: php vendor/bin/doctrine orm:schema-tool:update --force --dump-sql --sm-module:<path>
