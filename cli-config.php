@@ -16,10 +16,7 @@ foreach ($_SERVER['argv'] as $key => $val) {
     }
 }
 
-if ($smModuleArg)
-    $paths = array(__DIR__ . '/app/Model/' . explode(':', $smModuleArg)[1]);
-else
-    $paths = array(__DIR__ . '/app/Model/');
+$paths = array(__DIR__ . '/app/Model/');
 
 $config = Setup::createAnnotationMetadataConfiguration($paths, DEBUG_MODE);
 
@@ -32,5 +29,5 @@ try {
 }
 
 //Run schema tool update
-//For Windows: php vendor/doctrine/orm/bin/doctrine orm:schema-tool:update --force --dump-sql --sm-module:<path>
-//For Linux: php vendor/bin/doctrine orm:schema-tool:update --force --dump-sql --sm-module:<path>
+//For Windows: php vendor/doctrine/orm/bin/doctrine orm:schema-tool:update --force --dump-sql
+//For Linux: php vendor/bin/doctrine orm:schema-tool:update --force --dump-sql

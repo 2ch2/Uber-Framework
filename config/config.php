@@ -18,12 +18,11 @@ define('DATABASE', [
 //Set cache and starting dir destination for twig
 define('TWIG', [
     'dir' => __DIR__ . '/../app/View/',
-    'cache' => __DIR__.'/../cache'
+    'cache' => __DIR__ . '/../cache'
 ]);
 
 //Set correct server protocol
-if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off") {
+if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off")
     define('SERVER_PROTOCOL', 'http');
-} else {
+else
     define('SERVER_PROTOCOL', 'https');
-}
