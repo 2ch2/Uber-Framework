@@ -5,17 +5,26 @@ $collection->add('start', new uber\Core\Router\Route(
     //Url
     HTTP_SERVER.'',
     [
-        //Name of controller file (starts in src/Controller/)
-        'file' => 'Controller.php',
-        //Name of controller class (Namespace starts in Controller)
-        'class' => 'Controller',
+        //Name of controller file (starts in app/Http/Controller/)
+        'file' => 'MainController.php',
+        //Name of controller class (Namespace starts in app\Http\Controller)
+        'class' => 'MainController',
         //Name of function in assigned class
         'method' => 'start'
     ]
 ));
 
+$collection->add('panel', new uber\Core\Router\Route(
+    HTTP_SERVER.'panel',
+    [
+        'file' => 'MainController.php',
+        'class' => 'MainController',
+        'method' => 'panel'
+    ]
+));
+
 $collection->add('displayEntries', new uber\Core\Router\Route(
-    HTTP_SERVER.'entries',
+    HTTP_SERVER.'panel/entries',
     [
         'file' => 'EntriesController.php',
         'class' => 'EntriesController',
@@ -24,7 +33,7 @@ $collection->add('displayEntries', new uber\Core\Router\Route(
 ));
 
 $collection->add('addEntry', new uber\Core\Router\Route(
-    HTTP_SERVER.'entries/add',
+    HTTP_SERVER.'panel/entries/add',
     [
         'file' => 'EntriesController.php',
         'class' => 'EntriesController',
@@ -33,7 +42,7 @@ $collection->add('addEntry', new uber\Core\Router\Route(
 ));
 
 $collection->add('removeEntry', new uber\Core\Router\Route(
-    HTTP_SERVER.'entries/remove/{id}',
+    HTTP_SERVER.'panel/entries/remove/{id}',
     [
         'file' => 'EntriesController.php',
         'class' => 'EntriesController',

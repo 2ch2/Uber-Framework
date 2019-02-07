@@ -27,7 +27,7 @@ class Route
      */
     protected $file;
     /**
-     * Controller class.
+     * MainController class.
      *
      * @var string
      */

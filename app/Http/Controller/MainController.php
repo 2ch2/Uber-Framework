@@ -10,10 +10,15 @@ namespace app\Http\Controller;
  *
  * @license The MIT License (MIT)
  */
-class Controller extends \uber\Http\Controller
+class MainController extends \uber\Http\Controller
 {
     public function start()
     {
         $this->render('Main/start.html.twig');
+    }
+
+    public function panel()
+    {
+        $this->render('Main/panel.html.twig');
     }
 }

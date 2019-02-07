@@ -36,7 +36,7 @@ class EntriesController extends \uber\Http\Controller
 
         $model = $em->getRepository('app\Model\EntriesModel')->findAll();
 
-        $this->render('Entries/displayAction.html.twig', [
+        $this->render('Panel/Entries/displayAction.html.twig', [
             'entries' => $model
         ]);
     }
@@ -55,7 +55,7 @@ class EntriesController extends \uber\Http\Controller
 
             $this->redirect('displayEntries');
         } else {
-            $this->render('Entries/addAction.html.twig');
+            $this->render('Panel/Entries/addAction.html.twig');
         }
     }
 
