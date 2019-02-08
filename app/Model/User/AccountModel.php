@@ -24,21 +24,22 @@ class AccountModel
 
     /**
      * @var string
-     * @Column(type="string", length=32, unique=true, nullable=false)
+     * @Column(type="string", length=32, unique=true)
      */
     protected $username;
 
     /**
      * @var string
-     * @Column(type="string", length=32, nullable=false)
+     * @Column(type="string", length=32)
      */
     protected $password;
 
     /**
      * @var int
-     * @Column(type="string", options={"default" : 1})
+     * @OneToOne(targetEntity="RankModel")
+     * @JoinColumn(referencedColumnName="id")
      */
-    protected $rankId;
+    protected $rank;
 
     /**
      * @var string
@@ -47,26 +48,10 @@ class AccountModel
     protected $joined;
 
     /**
-     * @return string
-     */
-    public function getRecentActivity(): string
-    {
-        return $this->recentActivity;
-    }
-
-    /**
-     * @param string $recentActivity
-     */
-    public function setRecentActivity(string $recentActivity): void
-    {
-        $this->recentActivity = $recentActivity;
-    }
-
-    /**
      * @var string
      * @Column(type="datetime")
      */
-    protected $recentActivity;
+    protected $recent_activity;
 
     /**
      * @return int
@@ -119,17 +104,17 @@ class AccountModel
     /**
      * @return int
      */
-    public function getRankId(): int
+    public function getRank(): int
     {
-        return $this->rankId;
+        return $this->rank;
     }
 
     /**
-     * @param int $rankId
+     * @param int $rank
      */
-    public function setRankId(int $rankId)
+    public function setRank(int $rank)
     {
-        $this->rankId = $rankId;
+        $this->rank = $rank;
     }
 
     /**
@@ -148,4 +133,22 @@ class AccountModel
         $joined = new \DateTime();
         $this->joined = $joined;
     }
+
+    /**
+     * @return string
+     */
+    public function getRecentActivity(): string
+    {
+        return $this->recent_activity;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function setRecentActivity()
+    {
+        $recent_activity = new \DateTime();
+        $this->recent_activity = $recent_activity;
+    }
+
 }

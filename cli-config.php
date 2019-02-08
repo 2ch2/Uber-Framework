@@ -7,17 +7,7 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
 $smModuleArg = false;
-
-foreach ($_SERVER['argv'] as $key => $val) {
-    if (preg_match('/--sm-module/', $val)) {
-        $smModuleArg = $val;
-        unset($_SERVER['argv'][$key]);
-        $_SERVER['argc'] = $_SERVER['argc'] - 1;
-    }
-}
-
 $paths = array(__DIR__ . '/app/Model/');
-
 $config = Setup::createAnnotationMetadataConfiguration($paths, DEBUG_MODE);
 
 try {

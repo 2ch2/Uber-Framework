@@ -4,6 +4,7 @@ namespace app\Http\Controller;
 
 use app\Model\EntriesModel;
 use uber\Utils\DataManagement\VariablesManagement;
+use uber\Utils\ExceptionUtils;
 
 /**
  * Entries controller, managing all processes of
@@ -36,7 +37,7 @@ class EntriesController extends \uber\Http\Controller
 
         $model = $em->getRepository('app\Model\EntriesModel')->findAll();
 
-        $this->render('Panel/Entries/displayAction.html.twig', [
+        $this->render('Entries/displayAction.html.twig', [
             'entries' => $model
         ]);
     }
@@ -50,12 +51,16 @@ class EntriesController extends \uber\Http\Controller
             $model->setTitle($this->variables->post('title'));
             $model->setContent($this->variables->post('content'));
 
-            $em->persist($model);
-            $em->flush();
+            try {
+                $em->persist($model);
+                $em->flush();
+            } catch (\Exception $exception) {
+                ExceptionUtils::displayExceptionMessage($exception);
+            }
 
             $this->redirect('displayEntries');
         } else {
-            $this->render('Panel/Entries/addAction.html.twig');
+            $this->render('Entries/addAction.html.twig');
         }
     }
 
@@ -64,13 +69,21 @@ class EntriesController extends \uber\Http\Controller
         if ($this->variables->isGetExists('id') && $this->variables->get('id') !== 0) {
             $em = $this->getEntityManager();
 
-            $model = $em->find('app\Model\EntriesModel', $this->variables->get('id'));
-            if ($model) {
-                $em->remove($model);
-                $em->flush();
+            try {
+                $model = $em->find('app\Model\EntriesModel', $this->variables->get('id'));
+            } catch (\Exception $exception) {
+                ExceptionUtils::displayExceptionMessage($exception);
             }
-        }
 
-        $this->redirect('displayEntries');
+            if (isset($model)) {
+                try {
+                    $em->remove($model);
+                    $em->flush();
+                } catch (\Exception $exception) {
+                    ExceptionUtils::displayExceptionMessage($exception);
+                }
+            }
+            $this->redirect('displayEntries');
+        }
     }
 }

@@ -23,7 +23,7 @@ class RankModel
 
     /**
      * @var string
-     * @Column(type="string", length=32, unique=true, nullable=false)
+     * @Column(type="string", length=32, unique=true)
      */
     protected $name;
 
