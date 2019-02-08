@@ -45,10 +45,19 @@ class Controller
     private $session;
 
     /**
+     * Is true, when class is
+     * called by ajax.
+     *
+     * @var bool
+     */
+    public $isAjax = false;
+
+    /**
      * App constructor.
      */
     public function __construct()
     {
+        $this->isAjax();
         $this->urlGenerator = new UrlGenerator();
         $this->session = new Session();
 
@@ -96,5 +105,11 @@ class Controller
     public function getEntityManager(): EntityManager
     {
         return $this->entityManager;
+    }
+
+    private function isAjax()
+    {
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+           $this->isAjax = true;
     }
 }

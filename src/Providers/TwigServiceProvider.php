@@ -37,7 +37,7 @@ class TwigServiceProvider extends ServiceProvider
         });
 
         $functionAsset = new Twig_SimpleFunction('asset', function ($path){
-            return __DIR__.'/../../public/'.$path;
+            return HTTP_SERVER.'public/'.$path;
         });
 
         //Here include created functions.

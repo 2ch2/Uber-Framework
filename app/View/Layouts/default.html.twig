@@ -2,10 +2,12 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
-
     <title>Uber Framework</title>
+
+    {% block head %}
+
+    {% endblock %}
 </head>
 <body>
 <div class="content">
@@ -14,7 +16,7 @@
             <ul class="menu">
                 <li><a href="{{ url('start') }}">Start</a></li>
                 <li><a href="{{ url('panel') }}">Panel</a></li>
-                <li><a href="{{ url('signUp') }}">Sign In</a></li>
+                <li><a href="{{ url('signUp') }}">Sign Up </a></li>
             </ul>
         </nav>
     </header>

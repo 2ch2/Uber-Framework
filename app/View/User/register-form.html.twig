@@ -1,10 +1,45 @@
 {% extends 'Layouts/default.html.twig' %}
 
+{% block head %}
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#loading").hide();
+            $.ajaxSetup({
+                beforeSend: function () {
+                    $("#loading").show();
+                    $(".form-message").hide();
+                },
+                complete: function () {
+                    $('#loading').hide();
+                    $(".form-message").show();
+                }
+            });
+            $("form").submit(function (event) {
+                event.preventDefault();
+                let username = $("#form-username").val();
+                let password = $("#form-password").val();
+                let submit = $("#form-submit").val();
+                $(".form-message").load('{{ url('signUp') }}', {
+                    username: username,
+                    password: password,
+                    submit: submit
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
     <h1>Sign Up</h1>
-    <form method="post">
-        <input type="text" name="username" placeholder="Login"><br>
-        <input type="password" name="password" placeholder="Password"><br>
-        <input type="submit" value="Sign Up">
+    <form method="post" action="{{ url('signUp') }}">
+        <input id="form-username" type="text" name="username" placeholder="Username"><br>
+        <input id="form-password" type="password" name="password" placeholder="Password"><br>
+        <input id="form-submit" type="submit" value="Sign Up"><br><br>
+        <div class="form-message"></div>
+        <div id="loading">
+            <img src="{{ asset('img/ajax-loader.gif') }}" alt="Ajax gif loader.">
+        </div>
     </form>
 {% endblock %}
