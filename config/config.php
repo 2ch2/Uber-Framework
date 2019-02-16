@@ -6,6 +6,9 @@ define('HTTP_SERVER', 'http://localhost/Uber-Framework/');
 //Check for debug mode
 define('DEBUG_MODE', true);
 
+//Defines resources dir
+define('RESOURCES_DIR', __DIR__ . '/../resources/');
+
 //Set database connect data
 define('DATABASE', [
     //'host' => '(localhost is default)',
@@ -17,7 +20,7 @@ define('DATABASE', [
 
 //Set cache and starting dir destination for twig
 define('TWIG', [
-    'dir' => __DIR__ . '/../app/View/',
+    'dir' => __DIR__ . '/../resources/View/',
     'cache' => __DIR__ . '/../cache'
 ]);
 

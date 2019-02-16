@@ -1,0 +1,12 @@
+{
+  "Errors": {
+    "SignUp": {
+      "passwordEmpty": "Password cannot be empty.",
+      "passwordLength": "Password length must have from 5 to 32 characters.",
+      "repeatPassword": "Passwords are not the same.",
+      "usernameEmpty": "Username cannot be empty.",
+      "usernameLength": "Username length must have from 5 to 32 characters.",
+      "usernameExists": "User with this username already exists."
+    }
+  }
+}

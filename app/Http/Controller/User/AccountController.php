@@ -3,9 +3,9 @@
 namespace app\Http\Controller\User;
 
 use app\Model\User\AccountModel;
+use app\Utils\Auth\UserAuthorization;
+use app\Utils\Auth\HandleUserAuthorizationErrors;
 use uber\Http\Controller;
-use uber\Utils\Auth\User\HandleUserAuthorizationErrors;
-use uber\Utils\Auth\User\UserAuthorization;
 use uber\Utils\DataManagement\VariablesManagement;
 use uber\Utils\ExceptionUtils;
 
@@ -56,14 +56,12 @@ class AccountController extends Controller
                 } catch (\Exception $exception) {
                     ExceptionUtils::displayExceptionMessage($exception);
                 }
-
-                echo "Success!";
-            } elseif ($auth->getErrors()) {
-                new HandleUserAuthorizationErrors($auth->getErrors());
-                $this->render('User/SignUp/signUpErrors.html.twig', [
-                    'errors' => $auth->getErrors()
-                ]);
             }
+
+            new HandleUserAuthorizationErrors($auth->getErrors());
+            $this->render('User/SignUp/signUpAjax.html.twig', [
+                'errors' => $auth->getErrors()
+            ]);
         } else
             $this->render('User/SignUp/signUpForm.html.twig');
     }

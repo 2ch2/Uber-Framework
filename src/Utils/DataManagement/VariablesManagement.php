@@ -43,7 +43,7 @@ class VariablesManagement
             if (isset($this->post[$name]))
                 return $this->post[$name];
 
-            throw new \Exception('Post with name "' . $name . '" does not exists.');
+            throw new \Exception('Post with name ' . $name . ' does not exists.');
         } catch (\Exception $exception) {
             ExceptionUtils::displayExceptionMessage($exception);
             exit;
@@ -72,7 +72,7 @@ class VariablesManagement
             if (isset($this->get[$name]))
                 return $this->get[$name];
 
-            throw new \Exception('Get with name "' . $name . '" does not exists.');
+            throw new \Exception('Get with name ' . $name . ' does not exists.');
         } catch (\Exception $exception) {
             ExceptionUtils::displayExceptionMessage($exception);
             exit;

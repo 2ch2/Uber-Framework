@@ -67,4 +67,19 @@ class StringUtils
             return '';
         }
     }
+
+    public static function loadJson(string $path)
+    {
+        $filePath = RESOURCES_DIR . $path;
+        try {
+            if (file_exists($filePath)) {
+                $file = file_get_contents($filePath);
+                $data = json_decode($file, true);
+                return $data;
+            }
+            throw new \Exception('File ' . $filePath . ' does not exists.');
+        } catch (\Exception $exception) {
+            ExceptionUtils::displayExceptionMessage($exception);
+        }
+    }
 }

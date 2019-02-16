@@ -1,6 +1,6 @@
 <?php
 
-namespace uber\Utils\Auth\User;
+namespace app\Utils\Auth;
 
 use app\Model\User\AccountModel;
 use Doctrine\ORM\EntityManager;

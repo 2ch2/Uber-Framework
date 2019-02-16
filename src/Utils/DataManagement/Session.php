@@ -109,7 +109,7 @@ class Session
             if (isset($this->session[$name]))
                 unset($this->session[$name]);
             else
-                throw new \Exception('Session with name "' . $name . '" does not exists.');
+                throw new \Exception('Session with name ' . $name . ' does not exists.');
         } catch (\Exception $exception) {
             ExceptionUtils::displayExceptionMessage($exception);
             exit;

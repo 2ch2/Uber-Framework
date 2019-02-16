@@ -1,0 +1,19 @@
+<script>
+    $('#form-username, #form-password, #form-repeat-password').removeClass('error');
+
+    {% if errors %}
+        {% if errors['usernameEmpty'] is defined or errors['usernameLength'] is defined or errors['usernameExists'] is defined %}
+            $('#form-username').addClass('error');
+        {% endif %}
+
+        {% if errors['passwordEmpty'] is defined or errors['passwordLength'] is defined %}
+            $('#form-password').addClass('error');
+        {% endif %}
+
+        {% if errors['repeatPassword'] %}
+            $('#form-repeat-password').addClass('error');
+        {% endif %}
+    {% else %}
+        window.location.href = "{{ url('start') }}";
+    {% endif %}
+</script>
