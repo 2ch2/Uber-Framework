@@ -32,20 +32,29 @@ class Framework
      */
     public function handle()
     {
-        $this->router->run();
+        $running = $this->router->run();
 
         try {
-            $file = $this->router->getFile();
-            $class = $this->router->getClass();
-            $method = $this->router->getMethod();
+            if ($running) {
+                $file = $this->router->getFile();
+                $class = $this->router->getClass();
+                $method = $this->router->getMethod();
 
-            if (file_exists($file)) {
-                require_once $file . '';
-                $obj = new $class();
-                $obj->$method();
-            } else {
+                if (file_exists($file)) {
+                    require_once $file . '';
+
+                    if (class_exists($class)) {
+                        $obj = new $class();
+                        if (method_exists($obj, $method))
+                            $obj->$method();
+                        else
+                            throw new \Exception('Method "' . $method . '" in class "' . $class . '" does not exists.');
+                    } else
+                        throw new \Exception('Class ' . $class . ' does not exists.');
+                } else
+                    throw new \Exception('File ' . $file . ' does not exists.');
+            } else
                 throw new \Exception('Page not found.');
-            }
         } catch (\Exception $exception) {
             header("HTTP/1.1 404 Not Found");
             ExceptionUtils::displayExceptionMessage($exception);
