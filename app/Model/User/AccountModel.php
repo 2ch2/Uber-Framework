@@ -30,6 +30,12 @@ class AccountModel
 
     /**
      * @var string
+     * @Column(type="string", length=32, unique=true)
+     */
+    protected $email;
+
+    /**
+     * @var string
      * @Column(type="string", length=32)
      */
     protected $password;
@@ -83,6 +89,22 @@ class AccountModel
     public function setUsername(string $username)
     {
         $this->username = $username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
     }
 
     /**

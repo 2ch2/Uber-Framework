@@ -33,16 +33,27 @@ class AccountController extends Controller
         $this->variables = new VariablesManagement();
     }
 
+    public function login()
+    {
+        if ($this->isAjax) {
+
+        } else
+            $this->render('User/Login/loginForm.html.twig');
+    }
+
     public function signUp()
     {
         if ($this->isAjax) {
             $em = $this->getEntityManager();
-            $auth = new UserAuthorization($this->variables->post('username'), $this->variables->post('password'), $this->variables->post('repeatPassword'), $em);
+            $auth = new UserAuthorization($em);
+            $auth->authSignIn($this->variables->post('username'), $this->variables->post('email'), $this->variables->post('password'), $this->variables->post('repeatPassword'));
 
             if ($auth->getResults() && !$auth->getErrors()) {
                 $model = new AccountModel();
                 $model->setUsername($auth->getResults()['username']);
                 $model->setPassword($auth->getResults()['password']);
+                $model->setEmail($auth->getResults()['email']);
+
                 try {
                     $model->setJoined();
                     $model->setRecentActivity();
@@ -58,9 +69,10 @@ class AccountController extends Controller
                 }
             }
 
-            new HandleUserAuthorizationErrors($auth->getErrors());
             $this->render('User/SignUp/signUpAjax.html.twig', [
-                'errors' => $auth->getErrors()
+                'errors' => $auth->getErrors(),
+                'username' => $this->variables->post('username'),
+                'email' => $this->variables->post('email'),
             ]);
         } else
             $this->render('User/SignUp/signUpForm.html.twig');

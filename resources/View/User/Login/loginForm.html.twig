@@ -19,15 +19,11 @@
             $("form").submit(function (event) {
                 event.preventDefault();
                 let username = $("#form-username").val();
-                let email = $("#form-email").val();
                 let password = $("#form-password").val();
-                let repeatPassword = $("#form-repeat-password").val();
                 let submit = $("#form-submit").val();
-                $(".ajax-content").load('{{ url('signUp') }}', {
+                $("form").load('{{ url('signUp') }}', {
                     username: username,
-                    email: email,
                     password: password,
-                    repeatPassword: repeatPassword,
                     submit: submit
                 });
             });
@@ -36,15 +32,14 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Sign Up</h1>
+    <h1>Login</h1>
+    <p>Doesn't have an account? <a href="{{ url('signUp') }}">Sign Up!</a></p>
     <form method="post" action="{{ url('signUp') }}">
         <div class="ajax-content">
             <input id="form-username" type="text" name="username" placeholder="Username"><br>
-            <input id="form-email" type="email" name="email" placeholder="E-Mail"><br>
             <input id="form-password" type="password" name="password" placeholder="Password"><br>
-            <input id="form-repeat-password" type="password" name="repeatPassword" placeholder="Repeat password"><br>
+            <input id="form-submit" type="submit" value="Login"><br><br>
         </div>
-        <input id="form-submit" type="submit" value="Sign Up"><br><br>
         <div id="loading">
             <img src="{{ asset('img/ajax-loader.gif') }}" alt="Ajax gif loader.">
         </div>

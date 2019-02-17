@@ -56,6 +56,15 @@ $collection->add('removeEntry', new uber\Core\Router\Route(
     ]
 ));
 
+$collection->add('login', new \uber\Core\Router\Route(
+    HTTP_SERVER.'login',
+    [
+        'file' => 'User/AccountController.php',
+        'class' => 'User\AccountController',
+        'method' => 'login'
+    ]
+));
+
 $collection->add('signUp', new \uber\Core\Router\Route(
     HTTP_SERVER.'sign-up',
     [

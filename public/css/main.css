@@ -2,6 +2,14 @@
     box-sizing: border-box;
 }
 
+input{
+    margin-top: 10px;
+    padding: 10px;
+}
+
 input.error {
     border: 2px solid #e21328;
+}
+span.error {
+    color: #e21328;
 }

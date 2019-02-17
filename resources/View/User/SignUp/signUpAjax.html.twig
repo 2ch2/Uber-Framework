@@ -1,19 +1,22 @@
-<script>
-    $('#form-username, #form-password, #form-repeat-password').removeClass('error');
-
-    {% if errors %}
-        {% if errors['usernameEmpty'] is defined or errors['usernameLength'] is defined or errors['usernameExists'] is defined %}
-            $('#form-username').addClass('error');
-        {% endif %}
-
-        {% if errors['passwordEmpty'] is defined or errors['passwordLength'] is defined %}
-            $('#form-password').addClass('error');
-        {% endif %}
-
-        {% if errors['repeatPassword'] %}
-            $('#form-repeat-password').addClass('error');
-        {% endif %}
-    {% else %}
+{% if not errors %}
+    <script>
         window.location.href = "{{ url('start') }}";
-    {% endif %}
-</script>
+    </script>
+{% endif %}
+
+<input id="form-username" type="text" name="username" placeholder="Username" value="{{ username }}" {% if errors['username'] is defined %} class="error" {% endif %}><br>
+{% if errors['username'] is defined %}
+    <span class="error">{{ errors['username'] }}<br></span>
+{% endif %}
+<input id="form-email" type="email" name="email" placeholder="E-Mail" value="{{ email }}" {% if errors['email'] is defined %} class="error" {% endif %}><br>
+{% if errors['email'] is defined %}
+    <span class="error">{{ errors['email'] }}<br></span>
+{% endif %}
+<input id="form-password" type="password" name="password" placeholder="Password" {% if errors['password'] is defined %} class="error" {% endif %}><br>
+{% if errors['password'] is defined %}
+    <span class="error">{{ errors['password'] }}<br></span>
+{% endif %}
+<input id="form-repeat-password" type="password" name="repeatPassword" placeholder="Repeat password" {% if errors['repeatPassword'] is defined %} class="error" {% endif %}><br>
+{% if errors['repeatPassword'] is defined %}
+    <span class="error">{{ errors['repeatPassword'] }}<br></span>
+{% endif %}
