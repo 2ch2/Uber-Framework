@@ -4,7 +4,6 @@ namespace app\Http\Controller\User;
 
 use app\Model\User\AccountModel;
 use app\Utils\Auth\UserAuthorization;
-use app\Utils\Auth\HandleUserAuthorizationErrors;
 use uber\Http\Controller;
 use uber\Utils\DataManagement\VariablesManagement;
 use uber\Utils\ExceptionUtils;
@@ -36,6 +35,8 @@ class AccountController extends Controller
     public function login()
     {
         if ($this->isAjax) {
+            $em = $this->getEntityManager();
+            $auth = new UserAuthorization($em);
 
         } else
             $this->render('User/Login/loginForm.html.twig');

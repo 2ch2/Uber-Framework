@@ -93,7 +93,7 @@ class Session
             if (isset($this->session[$name]))
                 return $this->session[$name];
 
-            throw new \Exception('Session with name "' . $name . '" does not exists.');
+            throw new \Exception('Session with name ' . $name . ' does not exists.');
         } catch (\Exception $exception) {
             ExceptionUtils::displayExceptionMessage($exception);
             exit;

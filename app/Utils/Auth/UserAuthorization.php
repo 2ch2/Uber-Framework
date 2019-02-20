@@ -47,6 +47,22 @@ class UserAuthorization
 
     /**
      * @param string $username
+     * @param string $password
+     */
+    public function authLogin(string $username, string $password)
+    {
+        /**
+         * @var $model AccountModel
+         */
+        $model = $this->entityManager->getRepository('app\Model\User\AccountModel')->findBy(['username' => $username]);
+        if(!$username || !$password || empty($model) || !password_verify($password, $model->getPassword()))
+            $this->errors['login'] = $this->lang['Errors']['Login'];
+        else
+            $this->response['verified'] = true;
+    }
+
+    /**
+     * @param string $username
      * @param string $email
      * @param string $password
      * @param string $repeatPassword
