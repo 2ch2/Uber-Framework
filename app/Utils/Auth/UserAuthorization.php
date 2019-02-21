@@ -54,11 +54,13 @@ class UserAuthorization
         /**
          * @var $model AccountModel
          */
-        $model = $this->entityManager->getRepository('app\Model\User\AccountModel')->findBy(['username' => $username]);
-        if(!$username || !$password || empty($model) || !password_verify($password, $model->getPassword()))
+        $model = $this->entityManager->getRepository('app\Model\User\AccountModel')->findOneBy(['username' => $username]);
+        if (!$username || !$password || empty($model) || !password_verify($password, $model->getPassword()))
             $this->errors['login'] = $this->lang['Errors']['SignIn'];
-        else
+        else {
             $this->response['id'] = $model->getId();
+            $this->response['username'] = $model->getUsername();
+        }
     }
 
     /**
@@ -72,7 +74,7 @@ class UserAuthorization
         /**
          * @var $model AccountModel
          */
-        $model = $this->entityManager->getRepository('app\Model\User\AccountModel')->findBy(['username' => $username]);
+        $model = $this->entityManager->getRepository('app\Model\User\AccountModel')->findOneBy(['username' => $username]);
         if (!$username)
             $this->errors['username'] = $this->lang['Errors']['SignUp']['Username']['Empty'];
         elseif (strlen($username) > 32 || strlen($username) < 5)
@@ -83,10 +85,10 @@ class UserAuthorization
             $this->response['username'] = $username;
 
         $verifiedEmail = filter_var($email, FILTER_SANITIZE_EMAIL);
-        $model = $this->entityManager->getRepository('app\Model\User\AccountModel')->findBy(['email' => $verifiedEmail]);
+        $model = $this->entityManager->getRepository('app\Model\User\AccountModel')->findOneBy(['email' => $verifiedEmail]);
         if (!$email)
             $this->errors['email'] = $this->lang['Errors']['SignUp']['Email']['Empty'];
-        elseif(strlen($verifiedEmail) > 32 || strlen($verifiedEmail) < 5)
+        elseif (strlen($verifiedEmail) > 32 || strlen($verifiedEmail) < 5)
             $this->errors['email'] = $this->lang['Errors']['SignUp']['Email']['Length'];
         elseif (!filter_var($verifiedEmail, FILTER_VALIDATE_EMAIL) || $verifiedEmail != $email)
             $this->errors['email'] = $this->lang['Errors']['SignUp']['Email']['Valid'];

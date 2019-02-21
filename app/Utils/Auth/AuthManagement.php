@@ -32,6 +32,11 @@ class AuthManagement
     protected $isLogged = false;
 
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
      * @var string
      */
     protected $username;
@@ -56,23 +61,29 @@ class AuthManagement
         $this->entityManager = $entityManager;
         $this->session = new Session();
 
-        $this->checkIsLogged();
+        if ($this->session->isSessionExists('u_id')) {
+            $this->isLogged = true;
+            $this->id = $this->session->get('u_id');
+        }
     }
 
-    public function loadUserData($id)
+    public function createUserSession($id)
     {
-
+        if (!$this->isLogged) {
+            $this->session->start();
+            $this->session->set('u_id', $id);
+            $this->session->assign();
+        }
     }
 
-    public function updateUserData($id)
+    public function loadUserData()
     {
-        if($this->isLogged)
-        {
+        if ($this->isLogged) {
             try {
                 /**
                  * @var $model AccountModel
                  */
-                $model = $this->entityManager->find('app\Model\User\AccountModel', $id);
+                $model = $this->entityManager->find('app\Model\User\AccountModel', $this->id);
             } catch (\Exception $exception) {
                 ExceptionUtils::displayExceptionMessage($exception);
                 exit;
@@ -95,11 +106,19 @@ class AuthManagement
     }
 
     /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
      * @return string
      */
-    public function getLogin(): string
+    public function getUsername(): string
     {
-        return $this->login;
+        return $this->username;
     }
 
     /**
@@ -111,16 +130,10 @@ class AuthManagement
     }
 
     /**
-     * @return bool
+     * @return string
      */
-    private function checkIsLogged(): bool
+    public function getRank(): string
     {
-        if (!$this->session->isSessionExists('u_id')) {
-            $this->isLogged = true;
-
-            $this->session->start();
-            $this->session->set('u_id', $model->getId());
-            $this->session->assign();
-        }
+        return $this->rank;
     }
 }

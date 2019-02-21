@@ -36,7 +36,7 @@ class AccountModel
 
     /**
      * @var string
-     * @Column(type="string", length=32)
+     * @Column(type="string")
      */
     protected $password;
 

@@ -1,0 +1,11 @@
+{% if not errors %}
+    <script>
+        window.location.href = "{{ url('start') }}";
+    </script>
+{% endif %}
+
+<input id="form-username" type="text" name="username" placeholder="Username" value="{{ username }}"><br>
+<input id="form-password" type="password" name="password" placeholder="Password"><br>
+{% if errors['login'] is defined %}
+    <span class="error">{{ errors['login'] }}<br></span>
+{% endif %}

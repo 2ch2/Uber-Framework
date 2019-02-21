@@ -3,6 +3,7 @@
 namespace app\Http\Controller\User;
 
 use app\Model\User\AccountModel;
+use app\Utils\Auth\AuthManagement;
 use app\Utils\Auth\UserAuthorization;
 use uber\Http\Controller;
 use uber\Utils\DataManagement\VariablesManagement;
@@ -37,7 +38,17 @@ class AccountController extends Controller
         if ($this->isAjax) {
             $em = $this->getEntityManager();
             $auth = new UserAuthorization($em);
+            $auth->authSignIn($this->variables->post('username'), $this->variables->post('password'));
 
+            if($auth->getResults() && !$auth->getErrors()){
+                $authManagement = new AuthManagement($em);
+                $authManagement->createUserSession($auth->getResults()['id']);
+            }
+
+            $this->render('User/SignIn/signInAjax.html.twig', [
+                'errors' => $auth->getErrors(),
+                'username' => $this->variables->post('username')
+            ]);
 
         } else
             $this->render('User/SignIn/signInForm.html.twig');

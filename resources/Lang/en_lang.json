@@ -1,6 +1,6 @@
 {
   "Errors": {
-    "Login": "Invalid username or password.",
+    "SignIn": "Invalid username or password.",
     "SignUp": {
       "Username": {
         "Empty": "Username cannot be empty.",

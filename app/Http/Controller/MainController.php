@@ -15,6 +15,9 @@ class MainController extends \uber\Http\Controller
     public function start()
     {
         $this->render('Main/start.html.twig');
+        session_start();
+        if(isset($_SESSION['u_id']))
+            echo $_SESSION['u_id'];
     }
 
     public function panel()
