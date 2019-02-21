@@ -49,16 +49,16 @@ class UserAuthorization
      * @param string $username
      * @param string $password
      */
-    public function authLogin(string $username, string $password)
+    public function authSignIn(string $username, string $password)
     {
         /**
          * @var $model AccountModel
          */
         $model = $this->entityManager->getRepository('app\Model\User\AccountModel')->findBy(['username' => $username]);
         if(!$username || !$password || empty($model) || !password_verify($password, $model->getPassword()))
-            $this->errors['login'] = $this->lang['Errors']['Login'];
+            $this->errors['login'] = $this->lang['Errors']['SignIn'];
         else
-            $this->response['verified'] = true;
+            $this->response['id'] = $model->getId();
     }
 
     /**
@@ -67,7 +67,7 @@ class UserAuthorization
      * @param string $password
      * @param string $repeatPassword
      */
-    public function authSignIn(string $username, string $email, string $password, string $repeatPassword)
+    public function authSignUp(string $username, string $email, string $password, string $repeatPassword)
     {
         /**
          * @var $model AccountModel

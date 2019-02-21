@@ -34,38 +34,55 @@ class AuthManagement
     /**
      * @var string
      */
-    protected $login;
+    protected $username;
 
     /**
      * @var string
      */
     protected $email;
 
+    /**
+     * @var string
+     */
+    protected $rank;
+
+    /**
+     * @var int
+     */
+    protected $userId;
+
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
         $this->session = new Session();
+
+        $this->checkIsLogged();
     }
 
-    public function createSessions($id)
+    public function loadUserData($id)
     {
-        try {
-            /**
-             * @var $model AccountModel
-             */
-            $model = $this->entityManager->find('app\Model\User\AccountModel', $id);
-        } catch (\Exception $exception) {
-            ExceptionUtils::displayExceptionMessage($exception);
-            exit;
-        }
 
-        if(!empty($model)){
-            $this->session->start();
-            $this->session->set('u_id', $model->getId());
-            $this->session->set('u_username', $model->getUsername());
-            $this->session->set('u_email', $model->getEmail());
+    }
 
-            $this->session->assign();
+    public function updateUserData($id)
+    {
+        if($this->isLogged)
+        {
+            try {
+                /**
+                 * @var $model AccountModel
+                 */
+                $model = $this->entityManager->find('app\Model\User\AccountModel', $id);
+            } catch (\Exception $exception) {
+                ExceptionUtils::displayExceptionMessage($exception);
+                exit;
+            }
+
+            if (!empty($model)) {
+                $this->username = $model->getUsername();
+                $this->email = $model->getEmail();
+                $this->rank = $model->getRank();
+            }
         }
     }
 
@@ -91,5 +108,19 @@ class AuthManagement
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    /**
+     * @return bool
+     */
+    private function checkIsLogged(): bool
+    {
+        if (!$this->session->isSessionExists('u_id')) {
+            $this->isLogged = true;
+
+            $this->session->start();
+            $this->session->set('u_id', $model->getId());
+            $this->session->assign();
+        }
     }
 }

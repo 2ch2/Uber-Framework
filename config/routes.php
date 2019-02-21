@@ -23,6 +23,24 @@ $collection->add('panel', new uber\Core\Router\Route(
     ]
 ));
 
+$collection->add('signIn', new \uber\Core\Router\Route(
+    HTTP_SERVER.'sign-in',
+    [
+        'file' => 'User/AccountController.php',
+        'class' => 'User\AccountController',
+        'method' => 'signIn'
+    ]
+));
+
+$collection->add('signUp', new \uber\Core\Router\Route(
+    HTTP_SERVER.'sign-up',
+    [
+        'file' => 'User/AccountController.php',
+        'class' => 'User\AccountController',
+        'method' => 'signUp'
+    ]
+));
+
 $collection->add('displayEntries', new uber\Core\Router\Route(
     HTTP_SERVER.'panel/entries',
     [
@@ -53,24 +71,6 @@ $collection->add('removeEntry', new uber\Core\Router\Route(
     ],
     [
         'id' => '0'
-    ]
-));
-
-$collection->add('login', new \uber\Core\Router\Route(
-    HTTP_SERVER.'login',
-    [
-        'file' => 'User/AccountController.php',
-        'class' => 'User\AccountController',
-        'method' => 'login'
-    ]
-));
-
-$collection->add('signUp', new \uber\Core\Router\Route(
-    HTTP_SERVER.'sign-up',
-    [
-        'file' => 'User/AccountController.php',
-        'class' => 'User\AccountController',
-        'method' => 'signUp'
     ]
 ));
 

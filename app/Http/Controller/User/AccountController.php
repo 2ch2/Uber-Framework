@@ -32,14 +32,15 @@ class AccountController extends Controller
         $this->variables = new VariablesManagement();
     }
 
-    public function login()
+    public function signIn()
     {
         if ($this->isAjax) {
             $em = $this->getEntityManager();
             $auth = new UserAuthorization($em);
 
+
         } else
-            $this->render('User/Login/loginForm.html.twig');
+            $this->render('User/SignIn/signInForm.html.twig');
     }
 
     public function signUp()
@@ -47,7 +48,7 @@ class AccountController extends Controller
         if ($this->isAjax) {
             $em = $this->getEntityManager();
             $auth = new UserAuthorization($em);
-            $auth->authSignIn($this->variables->post('username'), $this->variables->post('email'), $this->variables->post('password'), $this->variables->post('repeatPassword'));
+            $auth->authSignUp($this->variables->post('username'), $this->variables->post('email'), $this->variables->post('password'), $this->variables->post('repeatPassword'));
 
             if ($auth->getResults() && !$auth->getErrors()) {
                 $model = new AccountModel();
