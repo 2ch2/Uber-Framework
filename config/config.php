@@ -1,7 +1,7 @@
 <?php
 
-//Here write your domain with correct protocol (https://example.com/)
-define('HTTP_SERVER', 'http://localhost/Uber-Framework/');
+//Set name for your project
+define('PROJECT_NAME', 'Uber-Framework');
 
 //Check for debug mode
 define('DEBUG_MODE', true);
@@ -25,7 +25,10 @@ define('TWIG', [
 ]);
 
 //Set correct server protocol
-if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off")
-    define('SERVER_PROTOCOL', 'http');
-else
-    define('SERVER_PROTOCOL', 'https');
+define('SERVER_PROTOCOL', (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') ? 'http://' : 'https://');
+
+$server_uri_array = explode('/', $_SERVER['REQUEST_URI']);
+$project_dir_name = PROJECT_NAME == $server_uri_array[1] ? '/' . PROJECT_NAME . '/' : '/';
+
+//Defines http server url
+define('HTTP_SERVER', SERVER_PROTOCOL . $_SERVER['HTTP_HOST'] . $project_dir_name);

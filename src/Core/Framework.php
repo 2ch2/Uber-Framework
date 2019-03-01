@@ -24,7 +24,7 @@ class Framework
      */
     public function __construct()
     {
-        $this->router = new Router(SERVER_PROTOCOL . '://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);
+        $this->router = new Router(SERVER_PROTOCOL . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);
     }
 
     /**
