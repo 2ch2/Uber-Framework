@@ -12,7 +12,7 @@ use uber\Utils\ExceptionUtils;
  *
  * @license The MIT License (MIT)
  */
-class Session
+class SessionManager
 {
     /**
      * @var array
@@ -20,36 +20,14 @@ class Session
     protected $session;
 
     /**
-     * Session constructor.
+     * SessionManager constructor.
      */
     public function __construct()
     {
-        if (isset($this->session)) {
-            $this->session = $_SESSION;
-        }
-    }
-
-    /**
-     * Starts session and assigns true session
-     * into local session variable.
-     */
-    public function start()
-    {
-        if (!isset($_SESSION)) {
+        if (!isset($_SESSION))
             session_start();
-            $this->session = $_SESSION;
-        }
-    }
 
-    /**
-     * @return bool
-     */
-    public function isStarted(): ?bool
-    {
-        if (isset($this->session))
-            return true;
-
-        return false;
+        $this->session = $_SESSION;
     }
 
     /**
@@ -93,7 +71,7 @@ class Session
             if (isset($this->session[$name]))
                 return $this->session[$name];
 
-            throw new \Exception('Session with name ' . $name . ' does not exists.');
+            throw new \Exception('SessionManager with name ' . $name . ' does not exists.');
         } catch (\Exception $exception) {
             ExceptionUtils::displayExceptionMessage($exception);
             exit;
@@ -109,7 +87,7 @@ class Session
             if (isset($this->session[$name]))
                 unset($this->session[$name]);
             else
-                throw new \Exception('Session with name ' . $name . ' does not exists.');
+                throw new \Exception('SessionManager with name ' . $name . ' does not exists.');
         } catch (\Exception $exception) {
             ExceptionUtils::displayExceptionMessage($exception);
             exit;

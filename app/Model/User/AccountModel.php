@@ -42,19 +42,18 @@ class AccountModel
 
     /**
      * @var int
-     * @OneToOne(targetEntity="RankModel")
-     * @JoinColumn(referencedColumnName="id")
+     * @Column(type="integer")
      */
     protected $rank;
 
     /**
-     * @var string
+     * @var object
      * @Column(type="datetime")
      */
     protected $joined;
 
     /**
-     * @var string
+     * @var object
      * @Column(type="datetime")
      */
     protected $recent_activity;
@@ -126,7 +125,7 @@ class AccountModel
     /**
      * @return int
      */
-    public function getRank(): int
+    public function getRank():? int
     {
         return $this->rank;
     }
@@ -140,9 +139,9 @@ class AccountModel
     }
 
     /**
-     * @return string
+     * @return object
      */
-    public function getJoined(): string
+    public function getJoined(): object
     {
         return $this->joined;
     }
@@ -157,9 +156,9 @@ class AccountModel
     }
 
     /**
-     * @return string
+     * @return object
      */
-    public function getRecentActivity(): string
+    public function getRecentActivity(): object
     {
         return $this->recent_activity;
     }

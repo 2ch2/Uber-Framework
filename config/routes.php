@@ -31,13 +31,20 @@ $collection->add('signIn', new \uber\Core\Router\Route(
         'method' => 'signIn'
     ]
 ));
-
 $collection->add('signUp', new \uber\Core\Router\Route(
     HTTP_SERVER.'sign-up',
     [
         'file' => 'User/AccountController.php',
         'class' => 'User\AccountController',
         'method' => 'signUp'
+    ]
+));
+$collection->add('signOut', new \uber\Core\Router\Route(
+    HTTP_SERVER.'sign-out',
+    [
+        'file' => 'User/AccountController.php',
+        'class' => 'User\AccountController',
+        'method' => 'signOut'
     ]
 ));
 
@@ -58,7 +65,6 @@ $collection->add('addEntry', new uber\Core\Router\Route(
         'method' => 'addAction'
     ]
 ));
-
 $collection->add('removeEntry', new uber\Core\Router\Route(
     HTTP_SERVER.'panel/entries/remove/{id}',
     [

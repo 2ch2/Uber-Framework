@@ -36,6 +36,10 @@ class TwigServiceProvider extends ServiceProvider
             return $options['session']->get($name);
         });
 
+        $functionSessionExists = new Twig_SimpleFunction('isSession', function ($name) use($options){
+            return $options['session']->isSessionExists($name);
+        });
+
         $functionAsset = new Twig_SimpleFunction('asset', function ($path){
             return HTTP_SERVER.'public/'.$path;
         });
@@ -43,8 +47,17 @@ class TwigServiceProvider extends ServiceProvider
         //Here include created functions.
         $twig->addFunction($functionGenerateUrl);
         $twig->addFunction($functionDisplaySession);
+        $twig->addFunction($functionSessionExists);
         $twig->addFunction($functionAsset);
 
         return $twig;
     }
+
+    public function defaultVariables()
+    {
+        $this->defaultVariables = [
+
+        ];
+    }
+
 }

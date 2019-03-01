@@ -12,7 +12,7 @@ use uber\Utils\ExceptionUtils;
  *
  * @license The MIT License (MIT)
  */
-class VariablesManagement
+class VariablesManager
 {
     /**
      * @var array
@@ -25,7 +25,7 @@ class VariablesManagement
     protected $get;
 
     /**
-     * VariablesManagement constructor.
+     * VariablesManager constructor.
      */
     public function __construct()
     {

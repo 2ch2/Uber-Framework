@@ -3,7 +3,7 @@
 namespace app\Http\Controller;
 
 use app\Model\EntriesModel;
-use uber\Utils\DataManagement\VariablesManagement;
+use uber\Utils\DataManagement\VariablesManager;
 use uber\Utils\ExceptionUtils;
 
 /**
@@ -17,7 +17,7 @@ use uber\Utils\ExceptionUtils;
 class EntriesController extends \uber\Http\Controller
 {
     /**
-     * @var VariablesManagement
+     * @var VariablesManager
      */
     private $variables;
 
@@ -28,7 +28,7 @@ class EntriesController extends \uber\Http\Controller
     {
         parent::__construct();
 
-        $this->variables = new VariablesManagement();
+        $this->variables = new VariablesManager();
     }
 
     public function displayAction()

@@ -3,10 +3,12 @@
 namespace app\Http\Controller\User;
 
 use app\Model\User\AccountModel;
-use app\Utils\Auth\AuthManagement;
+use app\Model\User\RankModel;
+use app\Utils\Auth\AuthManager;
 use app\Utils\Auth\UserAuthorization;
 use uber\Http\Controller;
-use uber\Utils\DataManagement\VariablesManagement;
+use uber\Utils\DataManagement\SessionManager;
+use uber\Utils\DataManagement\VariablesManager;
 use uber\Utils\ExceptionUtils;
 
 /**
@@ -19,9 +21,14 @@ use uber\Utils\ExceptionUtils;
 class AccountController extends Controller
 {
     /**
-     * @var VariablesManagement
+     * @var VariablesManager
      */
     private $variables;
+
+    /**
+     * @var SessionManager
+     */
+    private $session;
 
     /**
      * AccountController constructor.
@@ -30,7 +37,8 @@ class AccountController extends Controller
     {
         parent::__construct();
 
-        $this->variables = new VariablesManagement();
+        $this->variables = new VariablesManager();
+        $this->session = new SessionManager();
     }
 
     public function signIn()
@@ -40,8 +48,8 @@ class AccountController extends Controller
             $auth = new UserAuthorization($em);
             $auth->authSignIn($this->variables->post('username'), $this->variables->post('password'));
 
-            if($auth->getResults() && !$auth->getErrors()){
-                $authManagement = new AuthManagement($em);
+            if ($auth->getResults() && !$auth->getErrors()) {
+                $authManagement = new AuthManager($em);
                 $authManagement->createUserSession($auth->getResults()['id']);
             }
 
@@ -65,6 +73,7 @@ class AccountController extends Controller
                 $model = new AccountModel();
                 $model->setUsername($auth->getResults()['username']);
                 $model->setPassword($auth->getResults()['password']);
+                $model->setRank(1);
                 $model->setEmail($auth->getResults()['email']);
 
                 try {
@@ -89,5 +98,14 @@ class AccountController extends Controller
             ]);
         } else
             $this->render('User/SignUp/signUpForm.html.twig');
+    }
+
+    public function signOut()
+    {
+        if ($this->session->isSessionExists('user')) {
+            $authManagement = new AuthManager($this->getEntityManager());
+            $authManagement->destroyUserSession();
+        }
+        $this->redirect('start');
     }
 }
