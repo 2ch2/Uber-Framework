@@ -22,14 +22,26 @@
                 let email = $("#form-email").val();
                 let password = $("#form-password").val();
                 let repeatPassword = $("#form-repeat-password").val();
+                let recaptchaResponse = $("#form-recaptcha-response").val();
                 let submit = $("#form-submit").val();
                 $(".ajax-content").load('{{ url('signUp') }}', {
                     username: username,
                     email: email,
                     password: password,
                     repeatPassword: repeatPassword,
+                    recaptchaResponse: recaptchaResponse,
                     submit: submit
                 });
+            });
+        });
+    </script>
+
+    <script src="https://www.google.com/recaptcha/api.js?render={{ recaptchaWebsiteKey() }}"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute({{ recaptchaWebsiteKey() }}, { action: 'sign-up' }).then(function (token) {
+                var recaptchaResponse = document.getElementById('recaptchaResponse');
+                recaptchaResponse.value = token;
             });
         });
     </script>
@@ -45,6 +57,7 @@
             <input id="form-repeat-password" type="password" name="repeatPassword" placeholder="Repeat password"><br>
         </div>
         <input id="form-submit" type="submit" value="Sign Up"><br><br>
+        <input id="form-recaptcha-response" type="hidden" name="recaptcha-response">
         <div id="loading">
             <img src="{{ asset('img/ajax-loader.gif') }}" alt="Ajax gif loader.">
         </div>

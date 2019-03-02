@@ -68,8 +68,9 @@ class UserAuthorization
      * @param string $email
      * @param string $password
      * @param string $repeatPassword
+     * @param string $recaptchaResponse
      */
-    public function authSignUp(string $username, string $email, string $password, string $repeatPassword)
+    public function authSignUp(string $username, string $email, string $password, string $repeatPassword, string $recaptchaResponse)
     {
         /**
          * @var $model AccountModel
@@ -97,7 +98,6 @@ class UserAuthorization
         else
             $this->response['email'] = $verifiedEmail;
 
-
         if (!$password)
             $this->errors['password'] = $this->lang['Errors']['SignUp']['Password']['Empty'];
         elseif (strlen($password) > 32 || strlen($password) < 8)
@@ -107,6 +107,16 @@ class UserAuthorization
         else {
             $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
             $this->response['password'] = $passwordHashed;
+        }
+
+        if ($recaptchaResponse) {
+            $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+            $recaptchaSecret = RECAPTCHA_SECRET_KEY;
+
+            $recaptcha = file_get_contents($recaptchaUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
+
+            if ($recaptcha->score < 0.5)
+                $this->errors['recaptcha'] = $this->lang['Errors']['SignUp']['recaptcha'];
         }
     }
 

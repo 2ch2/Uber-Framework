@@ -1,6 +1,6 @@
 <?php
 
-namespace uber\Providers;
+namespace app\Providers;
 
 use Twig_Loader_Filesystem;
 use Twig_Environment;
@@ -28,20 +28,24 @@ class TwigServiceProvider extends ServiceProvider
         ));
 
         //Here create functions for twig.
-        $functionGenerateUrl = new Twig_SimpleFunction('url', function ($name, $parameters = null) use($options){
+        $functionGenerateUrl = new Twig_SimpleFunction('url', function ($name, $parameters = null) use ($options) {
             return $options['urlGenerator']->generate($name, $parameters);
         });
 
-        $functionDisplaySession = new Twig_SimpleFunction('session', function ($name) use($options){
+        $functionDisplaySession = new Twig_SimpleFunction('session', function ($name) use ($options) {
             return $options['session']->get($name);
         });
 
-        $functionSessionExists = new Twig_SimpleFunction('isSession', function ($name) use($options){
+        $functionSessionExists = new Twig_SimpleFunction('isSession', function ($name) use ($options) {
             return $options['session']->isSessionExists($name);
         });
 
-        $functionAsset = new Twig_SimpleFunction('asset', function ($path){
-            return HTTP_SERVER.'public/'.$path;
+        $functionAsset = new Twig_SimpleFunction('asset', function ($path) {
+            return HTTP_SERVER . 'public/' . $path;
+        });
+
+        $functionRecaptchaWebsiteKey = new Twig_SimpleFunction('recaptchaWebsiteKey', function () {
+            return RECAPTCHA_WEBSITE_KEY;
         });
 
         //Here include created functions.
@@ -49,15 +53,8 @@ class TwigServiceProvider extends ServiceProvider
         $twig->addFunction($functionDisplaySession);
         $twig->addFunction($functionSessionExists);
         $twig->addFunction($functionAsset);
+        $twig->addFunction($functionRecaptchaWebsiteKey);
 
         return $twig;
     }
-
-    public function defaultVariables()
-    {
-        $this->defaultVariables = [
-
-        ];
-    }
-
 }

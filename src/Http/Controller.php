@@ -3,8 +3,8 @@
 namespace uber\Http;
 
 use app\Utils\Auth\AuthManager;
-use uber\Providers\DoctrineServiceProvider;
-use uber\Providers\TwigServiceProvider;
+use app\Providers\DoctrineServiceProvider;
+use app\Providers\TwigServiceProvider;
 use uber\Core\Router\UrlGenerator;
 use Doctrine\ORM\EntityManager;
 use uber\Utils\DataManagement\SessionManager;

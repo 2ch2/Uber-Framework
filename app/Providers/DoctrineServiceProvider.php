@@ -1,6 +1,6 @@
 <?php
 
-namespace uber\Providers;
+namespace app\Providers;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;

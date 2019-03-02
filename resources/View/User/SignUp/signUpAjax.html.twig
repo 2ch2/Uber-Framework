@@ -6,17 +6,20 @@
 
 <input id="form-username" type="text" name="username" placeholder="Username" value="{{ username }}" {% if errors['username'] is defined %} class="error" {% endif %}><br>
 {% if errors['username'] is defined %}
-    <span class="error">{{ errors['username'] }}<br></span>
+    <span class="error">{{ errors['username'] }}</span><br>
 {% endif %}
 <input id="form-email" type="email" name="email" placeholder="E-Mail" value="{{ email }}" {% if errors['email'] is defined %} class="error" {% endif %}><br>
 {% if errors['email'] is defined %}
-    <span class="error">{{ errors['email'] }}<br></span>
+    <span class="error">{{ errors['email'] }}</span><br>
 {% endif %}
 <input id="form-password" type="password" name="password" placeholder="Password" {% if errors['password'] is defined %} class="error" {% endif %}><br>
 {% if errors['password'] is defined %}
-    <span class="error">{{ errors['password'] }}<br></span>
+    <span class="error">{{ errors['password'] }}</span><br>
 {% endif %}
 <input id="form-repeat-password" type="password" name="repeatPassword" placeholder="Repeat password" {% if errors['repeatPassword'] is defined %} class="error" {% endif %}><br>
 {% if errors['repeatPassword'] is defined %}
-    <span class="error">{{ errors['repeatPassword'] }}<br></span>
+    <span class="error">{{ errors['repeatPassword'] }}</span><br>
+{% endif %}
+{% if errors['recaptcha'] is defined %}
+    <br><span class="error">{{ errors['recaptcha'] }}</span><br>
 {% endif %}

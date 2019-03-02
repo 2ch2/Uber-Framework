@@ -1,6 +1,6 @@
 <?php
 
-namespace uber\Providers;
+namespace app\Providers;
 
 /**
  * Main class of service providers.

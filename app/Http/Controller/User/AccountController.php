@@ -67,7 +67,7 @@ class AccountController extends Controller
         if ($this->isAjax) {
             $em = $this->getEntityManager();
             $auth = new UserAuthorization($em);
-            $auth->authSignUp($this->variables->post('username'), $this->variables->post('email'), $this->variables->post('password'), $this->variables->post('repeatPassword'));
+            $auth->authSignUp($this->variables->post('username'), $this->variables->post('email'), $this->variables->post('password'), $this->variables->post('repeatPassword'), $this->variables->post('recaptchaResponse'));
 
             if ($auth->getResults() && !$auth->getErrors()) {
                 $model = new AccountModel();
