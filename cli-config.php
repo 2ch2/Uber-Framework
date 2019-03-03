@@ -1,12 +1,15 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
+
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__);
+
 require_once __DIR__ . '/config/config.php';
 
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
-$smModuleArg = false;
 $paths = array(__DIR__ . '/app/Model/');
 $config = Setup::createAnnotationMetadataConfiguration($paths, DEBUG_MODE);
 

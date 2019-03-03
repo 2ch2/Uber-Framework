@@ -3,6 +3,7 @@
 namespace app\Http\Controller;
 
 use app\Model\EntriesModel;
+use uber\Core\Router\UrlGenerator;
 use uber\Utils\DataManagement\VariablesManager;
 use uber\Utils\ExceptionUtils;
 
@@ -19,7 +20,12 @@ class EntriesController extends \uber\Http\Controller
     /**
      * @var VariablesManager
      */
-    private $variables;
+    private $variablesManager;
+
+    /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
 
     /**
      * EntriesController constructor.
@@ -28,13 +34,17 @@ class EntriesController extends \uber\Http\Controller
     {
         parent::__construct();
 
-        $this->variables = new VariablesManager();
+        $this->variablesManager = new variablesManager();
+        $this->urlGenerator = new UrlGenerator();
     }
 
     public function displayAction()
     {
         $em = $this->getEntityManager();
 
+        /**
+         * @var $model EntriesModel
+         */
         $model = $em->getRepository('app\Model\EntriesModel')->findAll();
 
         $this->render('Entries/displayAction.html.twig', [
@@ -44,12 +54,12 @@ class EntriesController extends \uber\Http\Controller
 
     public function addAction()
     {
-        if ($this->variables->isPostExists('title') && $this->variables->isPostExists('content')) {
+        if ($this->variablesManager->isPostExists('title') && $this->variablesManager->isPostExists('content')) {
             $em = $this->getEntityManager();
             $model = new EntriesModel();
 
-            $model->setTitle($this->variables->post('title'));
-            $model->setContent($this->variables->post('content'));
+            $model->setTitle($this->variablesManager->post('title'));
+            $model->setContent($this->variablesManager->post('content'));
 
             try {
                 $em->persist($model);
@@ -58,7 +68,7 @@ class EntriesController extends \uber\Http\Controller
                 ExceptionUtils::displayExceptionMessage($exception);
             }
 
-            $this->redirect('displayEntries');
+            $this->urlGenerator->redirect('displayEntries');
         } else {
             $this->render('Entries/addAction.html.twig');
         }
@@ -66,11 +76,14 @@ class EntriesController extends \uber\Http\Controller
 
     public function removeAction()
     {
-        if ($this->variables->isGetExists('id') && $this->variables->get('id') !== 0) {
+        if ($this->variablesManager->isGetExists('id') && $this->variablesManager->get('id') !== 0) {
             $em = $this->getEntityManager();
 
             try {
-                $model = $em->find('app\Model\EntriesModel', $this->variables->get('id'));
+                /**
+                 * @var $model EntriesModel
+                 */
+                $model = $em->find('app\Model\EntriesModel', $this->variablesManager->get('id'));
             } catch (\Exception $exception) {
                 ExceptionUtils::displayExceptionMessage($exception);
             }
@@ -83,7 +96,7 @@ class EntriesController extends \uber\Http\Controller
                     ExceptionUtils::displayExceptionMessage($exception);
                 }
             }
-            $this->redirect('displayEntries');
+            $this->urlGenerator->redirect('displayEntries');
         }
     }
 }

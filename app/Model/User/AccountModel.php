@@ -44,7 +44,7 @@ class AccountModel
      * @var int
      * @Column(type="integer")
      */
-    protected $rank;
+    protected $rank_id;
 
     /**
      * @var object
@@ -125,17 +125,17 @@ class AccountModel
     /**
      * @return int
      */
-    public function getRank():? int
+    public function getRankId():? int
     {
-        return $this->rank;
+        return $this->rank_id;
     }
 
     /**
-     * @param int $rank
+     * @param int $rankId
      */
-    public function setRank(int $rank)
+    public function setRankId(int $rankId)
     {
-        $this->rank = $rank;
+        $this->rank_id = $rankId;
     }
 
     /**
@@ -171,5 +171,4 @@ class AccountModel
         $recent_activity = new \DateTime();
         $this->recent_activity = $recent_activity;
     }
-
 }

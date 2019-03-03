@@ -4,6 +4,7 @@ namespace app\Utils\Auth;
 
 use app\Model\User\AccountModel;
 use Doctrine\ORM\EntityManager;
+use uber\Core\Router\UrlGenerator;
 use uber\Utils\DataManagement\SessionManager;
 use uber\Utils\ExceptionUtils;
 
@@ -14,27 +15,33 @@ use uber\Utils\ExceptionUtils;
  *
  * @license The MIT License (MIT)
  */
-class AuthManager
+class UserAuthManager
 {
     /**
      * @var EntityManager
      */
-    protected $entityManager;
+    private $entityManager;
 
     /**
      * @var SessionManager
      */
-    protected $session;
+    private $sessionManager;
+
+    /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
 
     /**
      * @var bool
      */
-    protected $isLogged = false;
+    private $isLogged = false;
 
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->session = new SessionManager();
+        $this->sessionManager = new SessionManager();
+        $this->urlGenerator = new UrlGenerator();
         $this->isLogged = $this->isLogged();
 
         if ($this->isLogged) {
@@ -46,23 +53,23 @@ class AuthManager
     public function createUserSession($id)
     {
         if (!$this->isLogged) {
-            $this->session->set('user', true);
-            $this->session->set('user_id', $id);
-            $this->session->assign();
+            $this->sessionManager->set('user', true);
+            $this->sessionManager->set('user_id', $id);
+            $this->sessionManager->assign();
         }
     }
 
     public function destroyUserSession()
     {
         if ($this->isLogged) {
-            $this->session->unset('user');
-            $this->session->unset('user_id');
-            $this->session->unset('user_username');
-            $this->session->unset('user_rank');
-            $this->session->unset('user_email');
-            $this->session->unset('user_joined');
-            $this->session->unset('user_recentActivity');
-            $this->session->assign();
+            $this->sessionManager->unset('user');
+            $this->sessionManager->unset('user_id');
+            $this->sessionManager->unset('user_username');
+            $this->sessionManager->unset('user_rank');
+            $this->sessionManager->unset('user_email');
+            $this->sessionManager->unset('user_joined');
+            $this->sessionManager->unset('user_recentActivity');
+            $this->sessionManager->assign();
         }
     }
 
@@ -71,7 +78,7 @@ class AuthManager
      */
     public function isLogged()
     {
-        if ($this->session->isSessionExists('user'))
+        if ($this->sessionManager->isSessionExists('user'))
             return true;
 
         return false;
@@ -84,19 +91,19 @@ class AuthManager
                 /**
                  * @var $model AccountModel
                  */
-                $model = $this->entityManager->find('app\Model\User\AccountModel', $this->session->get('user_id'));
+                $model = $this->entityManager->find('app\Model\User\AccountModel', $this->sessionManager->get('user_id'));
             } catch (\Exception $exception) {
                 ExceptionUtils::displayExceptionMessage($exception);
                 exit;
             }
 
             if (!empty($model)) {
-                $this->session->set('user_username', $model->getUsername());
-                $this->session->set('user_rank', $model->getRank());
-                $this->session->set('user_email', $model->getEmail());
-                $this->session->set('user_joined', $model->getJoined());
-                $this->session->set('user_recentActivity', $model->getRecentActivity());
-                $this->session->assign();
+                $this->sessionManager->set('user_username', $model->getUsername());
+                $this->sessionManager->set('user_rank', $model->getRankId());
+                $this->sessionManager->set('user_email', $model->getEmail());
+                $this->sessionManager->set('user_joined', $model->getJoined());
+                $this->sessionManager->set('user_recentActivity', $model->getRecentActivity());
+                $this->sessionManager->assign();
 
                 try {
                     $model->setRecentActivity();
@@ -104,6 +111,9 @@ class AuthManager
                 } catch (\Exception $exception) {
                     ExceptionUtils::displayExceptionMessage($exception);
                 }
+            } else {
+                $this->destroyUserSession();
+                $this->urlGenerator->redirect('start');
             }
         }
     }

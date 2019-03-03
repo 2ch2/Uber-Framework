@@ -33,11 +33,11 @@ class TwigServiceProvider extends ServiceProvider
         });
 
         $functionDisplaySession = new Twig_SimpleFunction('session', function ($name) use ($options) {
-            return $options['session']->get($name);
+            return $options['sessionManager']->get($name);
         });
 
         $functionSessionExists = new Twig_SimpleFunction('isSession', function ($name) use ($options) {
-            return $options['session']->isSessionExists($name);
+            return $options['sessionManager']->isSessionExists($name);
         });
 
         $functionAsset = new Twig_SimpleFunction('asset', function ($path) {
@@ -48,12 +48,20 @@ class TwigServiceProvider extends ServiceProvider
             return RECAPTCHA_WEBSITE_KEY;
         });
 
+        $functionDate = new Twig_SimpleFunction('date', function ($date = null){
+            /**
+             * @var \DateTime $date
+             */
+            return date('d.m.Y H:i:s', $date->getTimestamp());
+        });
+
         //Here include created functions.
         $twig->addFunction($functionGenerateUrl);
         $twig->addFunction($functionDisplaySession);
         $twig->addFunction($functionSessionExists);
         $twig->addFunction($functionAsset);
         $twig->addFunction($functionRecaptchaWebsiteKey);
+        $twig->addFunction($functionDate);
 
         return $twig;
     }

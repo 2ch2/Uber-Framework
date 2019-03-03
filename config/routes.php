@@ -48,6 +48,15 @@ $collection->add('signOut', new \uber\Core\Router\Route(
     ]
 ));
 
+$collection->add('displayUsers', new \uber\Core\Router\Route(
+    HTTP_SERVER.'panel/users',
+    [
+        'file' => 'User/AccountController.php',
+        'class' => 'User\AccountController',
+        'method' => 'displayAction'
+    ]
+));
+
 $collection->add('displayEntries', new uber\Core\Router\Route(
     HTTP_SERVER.'panel/entries',
     [
@@ -56,7 +65,6 @@ $collection->add('displayEntries', new uber\Core\Router\Route(
         'method' => 'displayAction'
     ]
 ));
-
 $collection->add('addEntry', new uber\Core\Router\Route(
     HTTP_SERVER.'panel/entries/add',
     [

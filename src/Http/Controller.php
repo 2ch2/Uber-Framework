@@ -2,7 +2,7 @@
 
 namespace uber\Http;
 
-use app\Utils\Auth\AuthManager;
+use app\Utils\Auth\UserAuthManager;
 use app\Providers\DoctrineServiceProvider;
 use app\Providers\TwigServiceProvider;
 use uber\Core\Router\UrlGenerator;
@@ -40,7 +40,7 @@ class Controller
      *
      * @var SessionManager
      */
-    public $sessionManager;
+    private $sessionManager;
 
     /**
      * @var UrlGenerator
@@ -64,17 +64,17 @@ class Controller
         $this->urlGenerator = new UrlGenerator();
         $this->sessionManager = new SessionManager();
 
+        $doctrine = new DoctrineServiceProvider(DATABASE);
+        $this->entityManager = $doctrine->provide();
+
+        new UserAuthManager($this->entityManager);
+
         $twig = new TwigServiceProvider(TWIG);
         $this->view = $twig->provide([
             //Parameters, that you want to give for TwigServiceProvider
             'urlGenerator' => $this->urlGenerator,
-            'session' => $this->sessionManager
+            'sessionManager' => $this->sessionManager
         ]);
-
-        $doctrine = new DoctrineServiceProvider(DATABASE);
-        $this->entityManager = $doctrine->provide();
-
-        new AuthManager($this->entityManager);
     }
 
     /**
@@ -90,18 +90,6 @@ class Controller
             ExceptionUtils::displayFullExceptionDetails($exception);
             exit;
         }
-    }
-
-    /**
-     * Redirecting to page from given parameters.
-     *
-     * @param string $name
-     * @param array $data
-     */
-    public function redirect(string $name, array $data = [])
-    {
-        header('Location: ' . $this->urlGenerator->generate($name, $data));
-        exit;
     }
 
     /**

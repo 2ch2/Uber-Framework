@@ -84,4 +84,16 @@ class UrlGenerator
         }
         return $path;
     }
+
+    /**
+     * Redirecting to page from given parameters.
+     *
+     * @param string $name
+     * @param array $data
+     */
+    public function redirect(string $name, array $data = [])
+    {
+        header('Location: ' . $this->generate($name, $data));
+        exit;
+    }
 }

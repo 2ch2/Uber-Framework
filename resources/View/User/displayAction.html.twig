@@ -1,0 +1,25 @@
+{% extends 'Layouts/default.html.twig' %}
+
+{% block content %}
+    <h1>Show Accounts</h1>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Rank</th>
+            <th>Recent Activity</th>
+            <th>Joined</th>
+            <th>Options</th>
+        </tr>
+        {% for item in users %}
+            <tr>
+                <td>{{ item.username }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.rank }}</td>
+                <td>{{ date(item.recent_activity) }}</td>
+                <td>{{ date(item.joined) }}</td>
+                <td><a href="#">Remove</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

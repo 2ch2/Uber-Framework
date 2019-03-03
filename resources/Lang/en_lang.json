@@ -18,7 +18,7 @@
         "Length": "Password length must have from 8 to 32 characters.",
         "Repeat": "Passwords are not the same."
       },
-      "reCAPTCHA": "The reCAPTCHA verification was unsuccessful."
+      "recaptcha": "The reCAPTCHA verification was unsuccessful."
     }
   }
 }

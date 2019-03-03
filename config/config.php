@@ -24,11 +24,13 @@ define('TWIG', [
 //Set dir for your project (if any)
 define('APP_DIR', $_ENV['APP_DIR']);
 
-//Set correct server protocol
-define('SERVER_PROTOCOL', (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') ? 'http://' : 'https://');
+if (isset($_SERVER['HTTP_HOST'])) {
+    //Set correct server protocol
+    define('SERVER_PROTOCOL', (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') ? 'http://' : 'https://');
 
-//Defines http server url
-define('HTTP_SERVER', SERVER_PROTOCOL . $_SERVER['HTTP_HOST'] . APP_DIR . '/');
+    //Defines http server url
+    define('HTTP_SERVER', SERVER_PROTOCOL . $_SERVER['HTTP_HOST'] . APP_DIR . '/');
+}
 
 //Define recaptcha keys from https://www.google.com/recaptcha/intro/v3.html
 define('RECAPTCHA_WEBSITE_KEY', $_ENV['RECAPTCHA_WEBSITE_KEY']);

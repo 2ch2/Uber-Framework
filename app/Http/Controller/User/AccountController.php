@@ -3,9 +3,10 @@
 namespace app\Http\Controller\User;
 
 use app\Model\User\AccountModel;
-use app\Model\User\RankModel;
-use app\Utils\Auth\AuthManager;
+use app\Utils\Auth\UserAuthManager;
 use app\Utils\Auth\UserAuthorization;
+use Doctrine\ORM\Query;
+use uber\Core\Router\UrlGenerator;
 use uber\Http\Controller;
 use uber\Utils\DataManagement\SessionManager;
 use uber\Utils\DataManagement\VariablesManager;
@@ -23,12 +24,17 @@ class AccountController extends Controller
     /**
      * @var VariablesManager
      */
-    private $variables;
+    private $variablesManager;
 
     /**
      * @var SessionManager
      */
-    private $session;
+    private $sessionManager;
+
+    /**
+     * @var UrlGenerator
+     */
+    private $urlGenerator;
 
     /**
      * AccountController constructor.
@@ -37,8 +43,31 @@ class AccountController extends Controller
     {
         parent::__construct();
 
-        $this->variables = new VariablesManager();
-        $this->session = new SessionManager();
+        $this->variablesManager = new VariablesManager();
+        $this->sessionManager = new SessionManager();
+        $this->urlGenerator = new UrlGenerator();
+    }
+
+    public function displayAction()
+    {
+        $em = $this->getEntityManager();
+
+        $qb = $em->createQueryBuilder()
+            ->select('a.username, a.email, a.recent_activity, a.joined, r.name AS rank')
+            ->from('app\Model\User\AccountModel', 'a')
+            ->leftJoin(
+                'app\Model\User\RankModel',
+                'r',
+                Query\Expr\Join::WITH,
+                'a.rank_id = r.id'
+            )
+            ->orderBy('a.id', 'DESC');
+
+        $model = $qb->getQuery()->getResult();
+
+        $this->render('User/displayAction.html.twig', [
+            'users' => $model
+        ]);
     }
 
     public function signIn()
@@ -46,16 +75,16 @@ class AccountController extends Controller
         if ($this->isAjax) {
             $em = $this->getEntityManager();
             $auth = new UserAuthorization($em);
-            $auth->authSignIn($this->variables->post('username'), $this->variables->post('password'));
+            $auth->authSignIn($this->variablesManager->post('username'), $this->variablesManager->post('password'));
 
             if ($auth->getResults() && !$auth->getErrors()) {
-                $authManagement = new AuthManager($em);
+                $authManagement = new UserAuthManager($em);
                 $authManagement->createUserSession($auth->getResults()['id']);
             }
 
             $this->render('User/SignIn/signInAjax.html.twig', [
                 'errors' => $auth->getErrors(),
-                'username' => $this->variables->post('username')
+                'username' => $this->variablesManager->post('username')
             ]);
 
         } else
@@ -67,13 +96,13 @@ class AccountController extends Controller
         if ($this->isAjax) {
             $em = $this->getEntityManager();
             $auth = new UserAuthorization($em);
-            $auth->authSignUp($this->variables->post('username'), $this->variables->post('email'), $this->variables->post('password'), $this->variables->post('repeatPassword'), $this->variables->post('recaptchaResponse'));
+            $auth->authSignUp($this->variablesManager->post('username'), $this->variablesManager->post('email'), $this->variablesManager->post('password'), $this->variablesManager->post('repeatPassword'), $this->variablesManager->post('recaptchaResponse'));
 
             if ($auth->getResults() && !$auth->getErrors()) {
                 $model = new AccountModel();
                 $model->setUsername($auth->getResults()['username']);
                 $model->setPassword($auth->getResults()['password']);
-                $model->setRank(1);
+                $model->setRankId(1);
                 $model->setEmail($auth->getResults()['email']);
 
                 try {
@@ -93,8 +122,8 @@ class AccountController extends Controller
 
             $this->render('User/SignUp/signUpAjax.html.twig', [
                 'errors' => $auth->getErrors(),
-                'username' => $this->variables->post('username'),
-                'email' => $this->variables->post('email'),
+                'username' => $this->variablesManager->post('username'),
+                'email' => $this->variablesManager->post('email'),
             ]);
         } else
             $this->render('User/SignUp/signUpForm.html.twig');
@@ -102,10 +131,10 @@ class AccountController extends Controller
 
     public function signOut()
     {
-        if ($this->session->isSessionExists('user')) {
-            $authManagement = new AuthManager($this->getEntityManager());
+        if ($this->sessionManager->isSessionExists('user')) {
+            $authManagement = new UserAuthManager($this->getEntityManager());
             $authManagement->destroyUserSession();
         }
-        $this->redirect('start');
+        $this->urlGenerator->redirect('start');
     }
 }

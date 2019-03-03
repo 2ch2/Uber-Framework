@@ -18,22 +18,22 @@ class UserAuthorization
     /**
      * @var EntityManager
      */
-    protected $entityManager;
+    private $entityManager;
 
     /**
      * @var array
      */
-    protected $errors = [];
+    private $errors = [];
 
     /**
      * @var array
      */
-    protected $response = [];
+    private $response = [];
 
     /**
      * @var array
      */
-    protected $lang;
+    private $lang;
 
     /**
      * UserAuthorization constructor.
